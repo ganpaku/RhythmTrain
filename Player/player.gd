@@ -9,7 +9,7 @@ func _ready():
 	currentLane = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_right"):
 		if currentLane >= lanes.size() -1:
 			return
