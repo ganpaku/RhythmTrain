@@ -15,9 +15,9 @@ run/main_scene="res://World/level.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
-[filesystem]
+[dotnet]
 
-import/fbx/enabled=false
+project/assembly_name="RhythmTrain"
 
 [input]
 
