@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://bvahvjiktwoxq"]
+
+[ext_resource type="PackedScene" uid="uid://bwbn2iui54g0y" path="res://Player/player.tscn" id="1_7legx"]
+[ext_resource type="Script" path="res://World/LanePath.gd" id="2_ql2os"]
+[ext_resource type="Script" path="res://Player/player.gd" id="2_xjs5c"]
+[ext_resource type="PackedScene" uid="uid://cfexyanvijbm1" path="res://Obstacles/BlockObst.tscn" id="3_ns4te"]
+
+[sub_resource type="Curve3D" id="Curve3D_bmpdo"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -8, 0, 0, -18, 0, 0, 18, 0, 0, 32, 1, 0, -3, -32, 0, 3, 32, 0, 63, 36, 0),
+"tilts": PackedFloat32Array(0, 1.5708, 0)
+}
+point_count = 3
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_onfxe"]
+size = Vector2(200, 200)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnx1i"]
+albedo_color = Color(0.0588235, 0.0666667, 0.129412, 1)
+metallic = 0.42
+roughness = 0.14
+
+[node name="Level" type="Node3D"]
+
+[node name="Conductor" type="Node" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_7legx")]
+freeze = true
+freeze_mode = 1
+script = ExtResource("2_xjs5c")
+
+[node name="LaneMarkers" type="Node3D" parent="."]
+
+[node name="LaneLeft" type="Marker3D" parent="LaneMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="LaneMid" type="Marker3D" parent="LaneMarkers"]
+
+[node name="LaneRight" type="Marker3D" parent="LaneMarkers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_bmpdo")
+script = ExtResource("2_ql2os")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-4.37111e-08, -0.995625, -0.0933393, 0, 0.0933396, -0.995623, 0.999992, -4.35202e-08, -4.07999e-09, 63, 36, 0)
+progress = 94.135
+tilt_enabled = false
+
+[node name="RigidBody3D" parent="Path3D/PathFollow3D" instance=ExtResource("3_ns4te")]
+
+[node name="Path3D2" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+curve = SubResource("Curve3D_bmpdo")
+script = ExtResource("2_ql2os")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D2"]
+transform = Transform3D(-4.37111e-08, -0.995625, -0.0933394, 0, 0.0933396, -0.995623, 0.999992, -4.35202e-08, -4.07999e-09, 63, 36, 0)
+progress = 94.135
+tilt_enabled = false
+
+[node name="RigidBody3D" parent="Path3D2/PathFollow3D" instance=ExtResource("3_ns4te")]
+
+[node name="Path3D3" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+curve = SubResource("Curve3D_bmpdo")
+script = ExtResource("2_ql2os")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D3"]
+transform = Transform3D(-4.37111e-08, -0.995625, -0.0933394, 0, 0.0933396, -0.995623, 0.999992, -4.35202e-08, -4.07999e-09, 63, 36, 0)
+progress = 94.135
+tilt_enabled = false
+
+[node name="RigidBody3D" parent="Path3D3/PathFollow3D" instance=ExtResource("3_ns4te")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1, 0)
+mesh = SubResource("PlaneMesh_onfxe")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 6.70552e-08, -1, 0, 1, 6.70552e-08, 0, -2.1, -25)
+mesh = SubResource("PlaneMesh_onfxe")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 5.86215e-15, 0, 6.70552e-08, -1, -8.74228e-08, -1, -6.70552e-08, 0, -2.1, 24)
+mesh = SubResource("PlaneMesh_onfxe")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 77, 0)
+light_color = Color(1, 0.807843, 0.588235, 1)
+light_energy = 7.788
+sky_mode = 1
