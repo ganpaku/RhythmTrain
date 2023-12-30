@@ -2,6 +2,7 @@ extends RigidBody3D
 @onready var lane_markers = $"../LaneMarkers"
 var lanes = [Marker3D]
 var currentLane
+@export var data : Resource
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	lanes = lane_markers.get_children()
