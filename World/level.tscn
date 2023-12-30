@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bvahvjiktwoxq"]
 
 [ext_resource type="PackedScene" uid="uid://bwbn2iui54g0y" path="res://Player/player.tscn" id="1_7legx"]
-[ext_resource type="Script" path="res://World/Conductor.gd" id="1_ccbko"]
+[ext_resource type="Script" path="res://World/Conductor.cs" id="1_hfm2p"]
 [ext_resource type="Script" path="res://World/LanePath.gd" id="2_ql2os"]
 [ext_resource type="Script" path="res://Player/player.gd" id="2_xjs5c"]
 [ext_resource type="PackedScene" uid="uid://cfexyanvijbm1" path="res://Obstacles/BlockObst.tscn" id="3_ns4te"]
@@ -24,7 +24,7 @@ roughness = 0.14
 [node name="Level" type="Node3D"]
 
 [node name="Conductor" type="Node" parent="."]
-script = ExtResource("1_ccbko")
+script = ExtResource("1_hfm2p")
 
 [node name="Player" parent="." instance=ExtResource("1_7legx")]
 freeze = true
