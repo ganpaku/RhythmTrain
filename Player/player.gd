@@ -1,5 +1,4 @@
 extends RigidBody3D
-@onready var lane_right = $"../LaneRight"
 @onready var lane_markers = $"../LaneMarkers"
 var lanes = [Marker3D]
 var currentLane
