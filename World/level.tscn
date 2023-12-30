@@ -44,7 +44,7 @@ curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-4.37111e-08, -0.995625, -0.0933393, 0, 0.0933396, -0.995623, 0.999992, -4.35202e-08, -4.07999e-09, 63, 36, 0)
+transform = Transform3D(-4.3711e-08, -0.995625, -0.0933394, 0, 0.0933396, -0.995623, 0.999992, -4.35201e-08, -4.07999e-09, 63, 36, 0)
 progress = 94.135
 tilt_enabled = false
 
@@ -56,7 +56,7 @@ curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D2"]
-transform = Transform3D(-4.37111e-08, -0.995625, -0.0933394, 0, 0.0933396, -0.995623, 0.999992, -4.35202e-08, -4.07999e-09, 63, 36, 0)
+transform = Transform3D(-4.3711e-08, -0.995625, -0.0933394, 0, 0.0933396, -0.995623, 0.999992, -4.35201e-08, -4.07999e-09, 63, 36, 0)
 progress = 94.135
 tilt_enabled = false
 
@@ -68,7 +68,7 @@ curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D3"]
-transform = Transform3D(-4.37111e-08, -0.995625, -0.0933394, 0, 0.0933396, -0.995623, 0.999992, -4.35202e-08, -4.07999e-09, 63, 36, 0)
+transform = Transform3D(-4.3711e-08, -0.995625, -0.0933394, 0, 0.0933396, -0.995623, 0.999992, -4.35201e-08, -4.07999e-09, 63, 36, 0)
 progress = 94.135
 tilt_enabled = false
 
