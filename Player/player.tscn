@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwbn2iui54g0y"]
+[gd_scene load_steps=13 format=3 uid="uid://bwbn2iui54g0y"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_x4alh"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_hcme3"]
+[ext_resource type="PackedScene" uid="uid://bqfyqonms47px" path="res://Player/PlayerModel_cube1.blend" id="2_aiwv2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ck7lb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jb6wi"]
 albedo_color = Color(0.0980392, 0, 0.854902, 1)
@@ -9,12 +12,141 @@ roughness = 0.21
 [sub_resource type="SphereMesh" id="SphereMesh_gmnlr"]
 material = SubResource("StandardMaterial3D_jb6wi")
 
+[sub_resource type="Animation" id="Animation_i3v2y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel_cube1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerModel_cube1:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0p0kg"]
+resource_name = "HopRight"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel_cube1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, -4.59478, 2.37841),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.7, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerModel_cube1:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.574349, 0.417653),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_inug4"]
+resource_name = "HopLeft"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel_cube1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, -4.59478, 2.37841),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.7, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerModel_cube1:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.574349, 0.417653),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-1.5708, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lw4ap"]
+_data = {
+"HopLeft": SubResource("Animation_inug4"),
+"HopRight": SubResource("Animation_0p0kg"),
+"RESET": SubResource("Animation_i3v2y")
+}
+
+[sub_resource type="Animation" id="Animation_7lucs"]
+resource_name = "EveryBeatSquash"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel_cube1:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(0.307786, 0.5, 1),
+"update": 0,
+"values": [Vector3(0.5, 0.5, 0.5), Vector3(0.5, 0.5, 0.7), Vector3(0.5, 0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_s73pp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerModel_cube1:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.5, 0.5, 0.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wc8qy"]
+_data = {
+"EveryBeatSquash": SubResource("Animation_7lucs"),
+"RESET": SubResource("Animation_s73pp")
+}
+
 [node name="Player" type="RigidBody3D"]
+script = ExtResource("1_hcme3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_x4alh")
+shape = SubResource("BoxShape3D_ck7lb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("SphereMesh_gmnlr")
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
@@ -23,3 +155,20 @@ transform = Transform3D(0.986777, 0.162086, 0, -0.162086, 0.986777, 0, 0, 0, 1, 
 [node name="Camera3D" type="Camera3D" parent="RemoteTransform3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 current = true
+
+[node name="PlayerModel_cube1" parent="." instance=ExtResource("2_aiwv2")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="HopAnim" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_lw4ap")
+}
+speed_scale = 2.4
+
+[node name="BeatAnim" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_wc8qy")
+}
+speed_scale = 1.5
