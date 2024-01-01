@@ -6,6 +6,8 @@ var currentLane
 @onready var conductor = %Conductor
 @onready var hop_anim = %HopAnim
 @onready var beat_anim = %BeatAnim
+@onready var player_model = %PlayerModel_cube1
+@onready var model_transform = %ModelTransform
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,19 +36,19 @@ func move_player(index):
 	var tween = create_tween()
 	tween.tween_property(self, "global_position", lanes[index].global_position, 0.2)
 	
-	
-
-
+func beatAnimTween():
+	var tween = create_tween()
+	tween.tween_property(model_transform, "scale", Vector3(1.3,1.3,1.3), 0.05).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(model_transform, "scale", Vector3(1.0,1.0,1.0), 0.05).set_ease(Tween.EASE_OUT)
 func _on_conductor_half_beat():
 	pass
-	
 	#position.y += 4
 
 
 func _on_conductor_eighth_beat():
 	pass
 
-
 func _on_conductor_quarter_beat():
-	beat_anim.play("EveryBeatSquash")
+	#beat_anim.play("EveryBeatSquash")
+	beatAnimTween()
 	pass # Replace with function body.

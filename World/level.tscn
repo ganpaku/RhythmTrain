@@ -1,38 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://bvahvjiktwoxq"]
+[gd_scene load_steps=12 format=3 uid="uid://bvahvjiktwoxq"]
 
+[ext_resource type="PackedScene" uid="uid://7v2wra8bi5kw" path="res://World/AllSkyFree_Sky_AnotherPlanet.tscn" id="1_5vhro"]
 [ext_resource type="PackedScene" uid="uid://bwbn2iui54g0y" path="res://Player/player.tscn" id="1_7legx"]
 [ext_resource type="Script" path="res://World/Conductor.cs" id="1_an4j4"]
 [ext_resource type="AudioStream" uid="uid://dhqt413ooee42" path="res://Audio/Music/DrumLoopBasic.wav" id="2_22u82"]
 [ext_resource type="Script" path="res://World/LanePath.gd" id="2_ql2os"]
 [ext_resource type="PackedScene" uid="uid://cfexyanvijbm1" path="res://Obstacles/BlockObst.tscn" id="3_ns4te"]
 [ext_resource type="PackedScene" uid="uid://cbxdy8d5oce00" path="res://Obstacles/sphea doodle.blend" id="6_ik5rg"]
-
-[sub_resource type="Gradient" id="Gradient_m2dq7"]
-colors = PackedColorArray(0.152941, 0.0588235, 0, 1, 0.5214, 0.79, 0.79, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_eaxrs"]
-gradient = SubResource("Gradient_m2dq7")
-fill_from = Vector2(0.532967, 1)
-fill_to = Vector2(0.505495, 0)
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_31pk0"]
-panorama = SubResource("GradientTexture2D_eaxrs")
-
-[sub_resource type="Sky" id="Sky_kwxak"]
-sky_material = SubResource("PanoramaSkyMaterial_31pk0")
-
-[sub_resource type="Environment" id="Environment_4jpqb"]
-background_mode = 2
-background_color = Color(0.67451, 0.415686, 0.521569, 1)
-sky = SubResource("Sky_kwxak")
-ambient_light_source = 3
-ambient_light_color = Color(0.807843, 0.976471, 0.992157, 1)
-ambient_light_energy = 2.69
-reflected_light_source = 2
+[ext_resource type="Texture2D" uid="uid://ctfsydqn46hrn" path="res://icon.svg" id="7_0qp3b"]
 
 [sub_resource type="Curve3D" id="Curve3D_bmpdo"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -8, 0, 0, -18, 0, 0, 18, 0, 0, 32, 1, 0, -3, -32, 0, 3, 32, 0, 63, 36, 0),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -8, 0, 0, -17.7227, -2.9423, 0, 17.7227, 2.9423, 0, 32.1346, 2.68447, 0, -1.86942, 12.4328, 3.8147e-06, 1.86942, -12.4328, -3.8147e-06, 64.994, -6.483, 0),
 "tilts": PackedFloat32Array(0, 1.5708, 0)
 }
 point_count = 3
@@ -42,17 +21,19 @@ size = Vector2(200, 200)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnx1i"]
 albedo_color = Color(0.0588235, 0.0666667, 0.129412, 1)
+albedo_texture = ExtResource("7_0qp3b")
 metallic = 0.42
 roughness = 0.14
 
 [node name="Level" type="Node3D"]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_4jpqb")
+[node name="AllSkyFree_Sky_AnotherPlanet" parent="." instance=ExtResource("1_5vhro")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, -5.06601, 0)
+visible = false
 light_color = Color(1, 0.819608, 0.709804, 1)
+shadow_enabled = true
 
 [node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("audioStreamPlayer")]
 unique_name_in_owner = true
@@ -83,7 +64,7 @@ curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-4.3711e-08, -0.995625, -0.0933394, 0, 0.0933396, -0.995623, 0.999992, -4.35201e-08, -4.07999e-09, 63, 36, 0)
+transform = Transform3D(1.1858e-07, 0.988875, -0.148688, -2.08614e-07, 0.148689, 0.988872, 0.999992, -8.62432e-08, 2.23926e-07, 64.994, -6.483, 0)
 progress = 94.135
 tilt_enabled = false
 
@@ -95,7 +76,7 @@ curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D2"]
-transform = Transform3D(-4.3711e-08, -0.995625, -0.0933394, 0, 0.0933396, -0.995623, 0.999992, -4.35201e-08, -4.07999e-09, 63, 36, 0)
+transform = Transform3D(1.1858e-07, 0.988875, -0.148688, -2.08614e-07, 0.148689, 0.988872, 0.999992, -8.62432e-08, 2.23926e-07, 64.994, -6.483, 0)
 progress = 94.135
 tilt_enabled = false
 
@@ -107,29 +88,32 @@ curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D3"]
-transform = Transform3D(-4.3711e-08, -0.995625, -0.0933394, 0, 0.0933396, -0.995623, 0.999992, -4.35201e-08, -4.07999e-09, 63, 36, 0)
+transform = Transform3D(1.1858e-07, 0.988875, -0.148688, -2.08614e-07, 0.148689, 0.988872, 0.999992, -8.62432e-08, 2.23926e-07, 64.994, -6.483, 0)
 progress = 94.135
 tilt_enabled = false
 
 [node name="RigidBody3D" parent="Path3D3/PathFollow3D" instance=ExtResource("3_ns4te")]
+transform = Transform3D(1, 0, 0, 0, 1, -1.93125e-14, 0, -1.93125e-14, 1, 0, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1, 0)
+[node name="W_Plane1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.0880751, 0, -2.1, 0)
 mesh = SubResource("PlaneMesh_onfxe")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 6.70552e-08, -1, 0, 1, 6.70552e-08, 0, -2.1, -25)
+visible = false
 mesh = SubResource("PlaneMesh_onfxe")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 8.74228e-08, 5.86215e-15, 0, 6.70552e-08, -1, -8.74228e-08, -1, -6.70552e-08, 0, -2.1, 24)
+visible = false
 mesh = SubResource("PlaneMesh_onfxe")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
 
 [node name="sphea doodle" parent="." instance=ExtResource("6_ik5rg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.60581, -1.19209e-07, 4.53768)
+transform = Transform3D(-5.44461e-08, -1.08747, 0, 1.24558, -4.75348e-08, 0, 0, 0, 1.77066, -5.60581, -1.19209e-07, 4.53768)
 
 [connection signal="EighthBeat" from="Conductor" to="Player" method="_on_conductor_eighth_beat"]
 [connection signal="HalfBeat" from="Conductor" to="Player" method="_on_conductor_half_beat"]
