@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cbxdy8d5oce00" path="res://Obstacles/sphea doodle.blend" id="1_hnmsy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j43vr"]
+size = Vector3(1, 1, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w6k8n"]
 albedo_color = Color(0.65098, 0, 0.294118, 1)
@@ -11,11 +12,12 @@ albedo_color = Color(0.65098, 0, 0.294118, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_syuaa"]
 material = SubResource("StandardMaterial3D_w6k8n")
 
-[node name="BlockObst" type="StaticBody3D"]
+[node name="BlockObst" type="Area3D"]
+collision_layer = 2
 script = ExtResource("1_3cn64")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, -2.98583e-08, -2.32831e-10, 2.08561e-07, 1, 5.82478e-10, 2.32831e-10, 2.26414e-10, 1, 0, 0, 0)
+transform = Transform3D(1, -2.98583e-08, -2.32831e-10, 2.08561e-07, 1, 5.82478e-10, 2.32831e-10, 2.26414e-10, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_j43vr")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

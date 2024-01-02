@@ -9,4 +9,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	path_follow_3d.progress -= 20 * delta
+	path_follow_3d.progress -= 30 * delta

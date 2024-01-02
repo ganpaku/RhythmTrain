@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cglted1r885g1"
+path="res://.godot/imported/RhythmTrain 1min test_90bpm.mp3-0229acf54204ec31d25e717ebb4a1868.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/RhythmTrain 1min test_90bpm.mp3"
+dest_files=["res://.godot/imported/RhythmTrain 1min test_90bpm.mp3-0229acf54204ec31d25e717ebb4a1868.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

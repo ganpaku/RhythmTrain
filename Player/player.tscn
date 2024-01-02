@@ -1,7 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bwbn2iui54g0y"]
+[gd_scene load_steps=14 format=3 uid="uid://bwbn2iui54g0y"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_hcme3"]
 [ext_resource type="PackedScene" uid="uid://bqfyqonms47px" path="res://Player/PlayerModel_cube1.blend" id="2_aiwv2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qxu1g"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ck7lb"]
 
@@ -140,7 +142,16 @@ _data = {
 }
 
 [node name="Player" type="RigidBody3D"]
+collision_mask = 2
+mass = 0.01
+gravity_scale = 0.0
 script = ExtResource("1_hcme3")
+
+[node name="Hurtbox" type="Area3D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+shape = SubResource("BoxShape3D_qxu1g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_ck7lb")
@@ -181,3 +192,8 @@ unique_name_in_owner = true
 [node name="PlayerModel_cube1" parent="ModelTransform" instance=ExtResource("2_aiwv2")]
 unique_name_in_owner = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[connection signal="noHealth" from="." to="." method="_on_no_health"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_body_shape_entered"]

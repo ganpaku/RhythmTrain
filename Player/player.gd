@@ -8,9 +8,13 @@ var currentLane
 @onready var beat_anim = %BeatAnim
 @onready var player_model = %PlayerModel_cube1
 @onready var model_transform = %ModelTransform
-
+@export var maxHealth = 3
+var health
+var isHopping = false
+signal noHealth
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	health = maxHealth
 	lanes = lane_markers.get_children()
 	print(lanes)
 	currentLane = 1
@@ -20,21 +24,24 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_right"):
 		if currentLane >= lanes.size() -1:
 			return
-		else:
+		elif !isHopping:
 			currentLane += 1
 			move_player(currentLane)
 			hop_anim.play("HopRight")
 	if Input.is_action_just_pressed("ui_left"):
 		if currentLane <= 0:
 			return
-		else:
+		elif !isHopping:
 			currentLane -= 1
 			move_player(currentLane)
 			hop_anim.play("HopLeft")
 			#global_position = lane_right.global_position
 func move_player(index):
 	var tween = create_tween()
-	tween.tween_property(self, "global_position", lanes[index].global_position, 0.2)
+	isHopping = true
+	tween.tween_property(self, "global_position", lanes[index].global_position, 0.15)
+	await tween.finished
+	isHopping = false
 	
 func beatAnimTween():
 	var tween = create_tween()
@@ -52,3 +59,14 @@ func _on_conductor_quarter_beat():
 	#beat_anim.play("EveryBeatSquash")
 	beatAnimTween()
 	pass # Replace with function body.
+
+func _on_no_health():
+	queue_free()
+
+func _on_hurtbox_area_entered(area):
+	health -= 1
+	print(health)
+	if health <= 0:
+		emit_signal("noHealth")
+
+
