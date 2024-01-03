@@ -30,7 +30,8 @@ environment = SubResource("2")
 [node name="DirectionalLight_AnotherPlanet" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.849579, 0.527461, 0, -0.527461, 0.849579, 0, 26.5368, 0)
 light_color = Color(0.764706, 0.666667, 0.662745, 1)
-light_energy = 2.48
+light_energy = 11.182
+light_indirect_energy = 5.525
 shadow_enabled = true
 
 [node name="AllSkyFree_DemoLandscape" parent="." instance=ExtResource("2")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvahvjiktwoxq"]
+[gd_scene load_steps=16 format=3 uid="uid://bvahvjiktwoxq"]
 
 [ext_resource type="PackedScene" uid="uid://7v2wra8bi5kw" path="res://World/AllSkyFree_Sky_AnotherPlanet.tscn" id="1_5vhro"]
 [ext_resource type="PackedScene" uid="uid://bwbn2iui54g0y" path="res://Player/player.tscn" id="1_7legx"]
@@ -7,11 +7,14 @@
 [ext_resource type="Script" path="res://World/LanePath.gd" id="2_ql2os"]
 [ext_resource type="PackedScene" uid="uid://cfexyanvijbm1" path="res://Obstacles/BlockObst.tscn" id="3_ns4te"]
 [ext_resource type="Texture2D" uid="uid://ctfsydqn46hrn" path="res://icon.svg" id="7_0qp3b"]
+[ext_resource type="Script" path="res://World/LaneScrollerPath.gd" id="8_7uxji"]
 [ext_resource type="PackedScene" uid="uid://copjc7deimdty" path="res://World/Lanes/Lane_Track.blend" id="8_mdg4s"]
+[ext_resource type="PackedScene" uid="uid://binprulqbg75p" path="res://World/Terrain/Retrowave_Terrain.blend" id="10_c8akx"]
+[ext_resource type="Script" path="res://World/Terrain/Retrowave_Terrain.gd" id="11_niujg"]
 
 [sub_resource type="Curve3D" id="Curve3D_bmpdo"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -8, 0, 0, -17.7227, -2.9423, 0, 17.7227, 2.9423, 0, 32.1346, 2.68447, 0, -1.86942, 12.4328, 3.8147e-06, 1.86942, -12.4328, -3.8147e-06, 64.994, -6.483, 0),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -8, 0, 0, -10.3544, -0.544965, 0, 10.3544, 0.544965, 0, 71.8124, 2.25159, 0, -8.81342, 11.4607, -1.90735e-05, 8.81342, -11.4607, 1.90735e-05, 133.949, -4.46617, -7.62939e-06),
 "tilts": PackedFloat32Array(0, 1.5708, 0)
 }
 point_count = 3
@@ -27,15 +30,26 @@ roughness = 0.14
 emission = Color(0.313726, 0.643137, 1, 1)
 emission_energy_multiplier = 1.62
 
+[sub_resource type="Curve3D" id="Curve3D_8pker"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -84, 0, 0, -28, 0, 0, 28, 0, 0, 81, 0, 0, -13, 5, 0, 13, -5, 0, 150, -6, 0),
+"tilts": PackedFloat32Array(0, 1.5708, 0)
+}
+point_count = 3
+
 [node name="Level" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, -8.8535, 0)
+light_color = Color(1, 0.819608, 0.709804, 1)
+shadow_enabled = true
 
 [node name="AllSkyFree_Sky_AnotherPlanet" parent="." instance=ExtResource("1_5vhro")]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, -5.06601, 0)
-visible = false
-light_color = Color(1, 0.819608, 0.709804, 1)
-shadow_enabled = true
+[node name="DirectionalLight_AnotherPlanet" parent="AllSkyFree_Sky_AnotherPlanet" index="1"]
+transform = Transform3D(1, 0, 0, 0, -0.925718, -0.378214, 0, 0.378214, -0.925718, 0, 26.5368, 0)
+light_energy = 1.0
+light_indirect_energy = 1.0
 
 [node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("audioStreamPlayer")]
 unique_name_in_owner = true
@@ -65,8 +79,8 @@ curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="LaneLeft"]
-transform = Transform3D(1.1858e-07, 0.988875, -0.148688, -2.08614e-07, 0.148689, 0.988872, 0.999992, -8.62432e-08, 2.23926e-07, 64.994, -6.483, 3.55271e-15)
-progress = 78.6841
+transform = Transform3D(7.54233e-08, -0.0397055, -0.999199, 1.86263e-09, 0.999202, -0.0397054, 0.999992, 1.13358e-09, 7.54374e-08, 69.3552, 2.14225, 0)
+progress = 77.3874
 tilt_enabled = false
 
 [node name="RigidBody3D" parent="LaneLeft/PathFollow3D" instance=ExtResource("3_ns4te")]
@@ -76,7 +90,7 @@ curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="LaneMiddle"]
-transform = Transform3D(-3.99079e-08, 0.695547, -0.718466, -1.19208e-07, 0.718468, 0.695545, 0.999992, 1.13406e-07, 5.42427e-08, 61.6815, 0.495672, 1.59694e-06)
+transform = Transform3D(-1.62859e-07, -0.032424, -0.999462, -1.86263e-09, 0.999465, -0.0324239, 0.999992, -3.41893e-09, -1.62833e-07, 62.7897, 1.91124, 0)
 progress = 70.8157
 tilt_enabled = false
 
@@ -88,7 +102,7 @@ curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="LaneRight"]
-transform = Transform3D(1.1858e-07, 0.988874, -0.148688, -2.08614e-07, 0.148689, 0.988871, 0.999992, -8.62431e-08, 2.23926e-07, 64.994, -6.483, 3.55271e-15)
+transform = Transform3D(7.54152e-08, -0.0440251, -0.999017, 1.86263e-09, 0.999021, -0.044025, 0.999992, 1.45937e-09, 7.54237e-08, 70.6532, 2.19633, 0)
 progress = 78.6841
 tilt_enabled = false
 
@@ -112,14 +126,72 @@ visible = false
 mesh = SubResource("PlaneMesh_onfxe")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
 
-[node name="Track" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.34109, -0.510208, 0)
+[node name="LaneScrollerPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_8pker")
+script = ExtResource("8_7uxji")
 
-[node name="Lane_Track" parent="Track" instance=ExtResource("8_mdg4s")]
-transform = Transform3D(-2.09815e-07, 0, -3, 0, 3, 0, 4.8, 0, -1.31134e-07, 0, 0, 0)
+[node name="PathLaneChunk1" type="PathFollow3D" parent="LaneScrollerPath"]
+transform = Transform3D(-4.37113e-08, 0, -0.999962, 0, 0.999962, 0, 0.999999, 0, -4.37097e-08, -84, 0, 0)
+tilt_enabled = false
+
+[node name="Track" type="Node3D" parent="LaneScrollerPath/PathLaneChunk1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.51, 0)
+
+[node name="Lane_Track" parent="LaneScrollerPath/PathLaneChunk1/Track" instance=ExtResource("8_mdg4s")]
+transform = Transform3D(-2.09815e-07, 0, -1, 0, 3, 0, 4.8, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Plane" parent="LaneScrollerPath/PathLaneChunk1/Track/Lane_Track" index="0"]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, -36.474, -7.10543e-15, 0, -32.8739)
+
+[node name="PathLaneChunk2" type="PathFollow3D" parent="LaneScrollerPath"]
+transform = Transform3D(-4.37114e-08, 0, -0.999967, 0, 0.999967, 0, 1, 0, -4.37099e-08, -18.193, 0, 0)
+progress = 65.807
+tilt_enabled = false
+
+[node name="Track" type="Node3D" parent="LaneScrollerPath/PathLaneChunk2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.59936e-07, -0.510208, -3.65891)
+
+[node name="Lane_Track" parent="LaneScrollerPath/PathLaneChunk2/Track" instance=ExtResource("8_mdg4s")]
+transform = Transform3D(-2.09815e-07, 0, -1, 0, 3, 0, 4.8, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="PathLaneChunk3" type="PathFollow3D" parent="LaneScrollerPath"]
+transform = Transform3D(-4.37114e-08, 0, -0.999964, 0, 0.999964, 0, 1, 0, -4.37098e-08, 52.4452, 0, 0)
+progress = 136.445
+tilt_enabled = false
+
+[node name="Track" type="Node3D" parent="LaneScrollerPath/PathLaneChunk3"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.59936e-07, -0.510208, -3.65891)
+
+[node name="Lane_Track" parent="LaneScrollerPath/PathLaneChunk3/Track" instance=ExtResource("8_mdg4s")]
+transform = Transform3D(-2.09815e-07, 0, -1, 0, 3, 0, 4.8, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Plane" parent="LaneScrollerPath/PathLaneChunk3/Track/Lane_Track" index="0"]
+transform = Transform3D(2, 2.22045e-16, 2.84217e-14, 0, 1, -1.19209e-07, 2.84217e-14, -5.28769e-16, -36.474, 0, -4.76837e-07, -32.8739)
+
+[node name="PathLaneChunk4" type="PathFollow3D" parent="LaneScrollerPath"]
+transform = Transform3D(-1.62681e-07, 0.0642456, -0.997899, 3.72529e-09, 0.997899, 0.0642456, 1, 6.73406e-09, -1.62578e-07, 118.749, -0.962968, 0)
+progress = 202.768
+tilt_enabled = false
+
+[node name="Track" type="Node3D" parent="LaneScrollerPath/PathLaneChunk4"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.59936e-07, -0.510208, -3.65891)
+
+[node name="Lane_Track" parent="LaneScrollerPath/PathLaneChunk4/Track" instance=ExtResource("8_mdg4s")]
+transform = Transform3D(-2.09815e-07, 0, -1, 0, 3, 0, 4.8, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Plane" parent="LaneScrollerPath/PathLaneChunk4/Track/Lane_Track" index="0"]
+transform = Transform3D(2, 2.22045e-16, 2.84217e-14, 0, 1, -1.19209e-07, 2.84217e-14, -5.28769e-16, -36.474, 0, -4.76837e-07, -32.8739)
+
+[node name="Retrowave_Terrain" parent="." instance=ExtResource("10_c8akx")]
+transform = Transform3D(-1.07017e-07, 0, -2.44826, 0, 2.44826, 0, 2.44826, 0, -1.07017e-07, 221, -0.539123, 0)
+script = ExtResource("11_niujg")
 
 [connection signal="EighthBeat" from="Conductor" to="Player" method="_on_conductor_eighth_beat"]
 [connection signal="HalfBeat" from="Conductor" to="Player" method="_on_conductor_half_beat"]
 [connection signal="QuarterBeat" from="Conductor" to="Player" method="_on_conductor_quarter_beat"]
 
-[editable path="Track/Lane_Track"]
+[editable path="AllSkyFree_Sky_AnotherPlanet"]
+[editable path="LaneScrollerPath/PathLaneChunk1/Track/Lane_Track"]
+[editable path="LaneScrollerPath/PathLaneChunk2/Track/Lane_Track"]
+[editable path="LaneScrollerPath/PathLaneChunk3/Track/Lane_Track"]
+[editable path="LaneScrollerPath/PathLaneChunk4/Track/Lane_Track"]
