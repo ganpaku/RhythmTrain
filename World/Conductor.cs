@@ -86,16 +86,16 @@ public override void _Process(double delta)
                     {
                         case NoteType.Whole:
                             GD.Print("currentBeat, nextbeat" + " " + playbackPosition.ToString("0.000") + " " + noteInterval.nextBeatTime.ToString("0.000") + " " + noteInterval.beatLength.ToString("0.000"));
-                            EmitSignal("WholeBeatEventHandler");
+                            EmitSignal(SignalName.WholeBeat);
                             break;
                         case NoteType.Half:
-                            EmitSignal("HalfBeatEventHandler");
+                            EmitSignal(SignalName.HalfBeat);
                             break;
                         case NoteType.Quarter:
-                            EmitSignal("QuarterBeatEventHandler");
+                            EmitSignal(SignalName.QuarterBeat);
                             break;
                         case NoteType.Eighth:
-                            EmitSignal("EighthBeatEventHandler");
+                            EmitSignal(SignalName.EighthBeat);
                             break;
                     }
                     
