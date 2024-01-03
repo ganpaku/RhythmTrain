@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://7v2wra8bi5kw" path="res://World/AllSkyFree_Sky_AnotherPlanet.tscn" id="1_5vhro"]
 [ext_resource type="PackedScene" uid="uid://bwbn2iui54g0y" path="res://Player/player.tscn" id="1_7legx"]
 [ext_resource type="Script" path="res://World/Conductor.cs" id="1_an4j4"]
-[ext_resource type="AudioStream" uid="uid://dhqt413ooee42" path="res://Audio/Music/DrumLoopBasic.wav" id="2_22u82"]
 [ext_resource type="Script" path="res://World/LanePath.gd" id="2_ql2os"]
+[ext_resource type="AudioStream" uid="uid://crpha1wly1ffe" path="res://Audio/Music/RhythmTrain_testLoop_120bpm.mp3" id="2_vow6x"]
 [ext_resource type="PackedScene" uid="uid://cfexyanvijbm1" path="res://Obstacles/BlockObst.tscn" id="3_ns4te"]
 [ext_resource type="Texture2D" uid="uid://ctfsydqn46hrn" path="res://icon.svg" id="7_0qp3b"]
 [ext_resource type="PackedScene" uid="uid://copjc7deimdty" path="res://World/Lanes/Lane_Track.blend" id="8_mdg4s"]
@@ -37,15 +37,18 @@ visible = false
 light_color = Color(1, 0.819608, 0.709804, 1)
 shadow_enabled = true
 
-[node name="Conductor" type="Node" parent="." node_paths=PackedStringArray("audioStreamPlayer")]
-unique_name_in_owner = true
+[node name="Conductor" type="Node" parent="."]
 script = ExtResource("1_an4j4")
-bpm = 93.0
-audioStreamPlayer = NodePath("AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Conductor"]
-stream = ExtResource("2_22u82")
+stream = ExtResource("2_vow6x")
 autoplay = true
+
+[node name="ColorRect" type="ColorRect" parent="Conductor"]
+offset_left = 63.0
+offset_top = 66.0
+offset_right = 103.0
+offset_bottom = 106.0
 
 [node name="Player" parent="." instance=ExtResource("1_7legx")]
 

@@ -3,7 +3,7 @@ extends RigidBody3D
 var lanes = [Marker3D]
 var currentLane
 @export var data : Resource
-@onready var conductor = %Conductor
+@onready var conductor = $"../Conductor"
 @onready var hop_anim = %HopAnim
 @onready var beat_anim = %BeatAnim
 @onready var player_model = %PlayerModel_cube1
@@ -21,6 +21,8 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	if Input.is_action_just_pressed("ui_up"):
+		var _inBeat = conductor.IsInBeat()
 	if Input.is_action_just_pressed("ui_right"):
 		if currentLane >= lanes.size() -1:
 			return

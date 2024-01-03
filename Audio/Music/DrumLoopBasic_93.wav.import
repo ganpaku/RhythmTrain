@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dhqt413ooee42"
-path="res://.godot/imported/DrumLoopBasic.wav-8682e7452014ae2a443b7a1a6f0e6ae7.sample"
+path="res://.godot/imported/DrumLoopBasic_93.wav-3be12d5e45a57fb553d3fc98ee1dbee4.sample"
 
 [deps]
 
-source_file="res://Audio/Music/DrumLoopBasic.wav"
-dest_files=["res://.godot/imported/DrumLoopBasic.wav-8682e7452014ae2a443b7a1a6f0e6ae7.sample"]
+source_file="res://Audio/Music/DrumLoopBasic_93.wav"
+dest_files=["res://.godot/imported/DrumLoopBasic_93.wav-3be12d5e45a57fb553d3fc98ee1dbee4.sample"]
 
 [params]
 
