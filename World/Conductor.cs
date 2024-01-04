@@ -19,16 +19,16 @@ using Godot;
             switch(noteType)
             {
                 case NoteType.Whole:
-                    beatLength = beatLengthInSeconds;
+                    beatLength = beatLengthInSeconds*4.0;
                     break;
                 case NoteType.Half:
-                    beatLength = beatLengthInSeconds/2.0;
+                    beatLength = beatLengthInSeconds*2.0;
                     break;
                 case NoteType.Quarter:
-                    beatLength = beatLengthInSeconds/4.0;
+                    beatLength = beatLengthInSeconds;
                     break;
                 case NoteType.Eighth:
-                    beatLength = beatLengthInSeconds/8.0;
+                    beatLength = beatLengthInSeconds/2.0;
                     break;
                 default:
                     beatLength = 8.0;
@@ -42,7 +42,7 @@ public partial class Conductor : Node
     //Public variables
     [Export]
     private int InputLagInMilliseconds = 100;
-
+    [Export] private double bpm = 120.0;
     //Beat Signals
 	[Signal] public delegate void WholeBeatEventHandler();
 	[Signal] public delegate void HalfBeatEventHandler();
@@ -50,7 +50,7 @@ public partial class Conductor : Node
 	[Signal] public delegate void EighthBeatEventHandler();
 
     //Private variables
-    private double bpm = 120.0;
+   
 
     private AudioStreamPlayer audioStreamPlayer = null;
      private double previousPlaybackPosition = 0.0;
@@ -85,13 +85,14 @@ public override void _Process(double delta)
                     switch(noteInterval.noteType)
                     {
                         case NoteType.Whole:
-                            GD.Print("currentBeat, nextbeat" + " " + playbackPosition.ToString("0.000") + " " + noteInterval.nextBeatTime.ToString("0.000") + " " + noteInterval.beatLength.ToString("0.000"));
+                            
                             EmitSignal(SignalName.WholeBeat);
                             break;
                         case NoteType.Half:
                             EmitSignal(SignalName.HalfBeat);
                             break;
                         case NoteType.Quarter:
+                            GD.Print("currentBeat, nextbeat" + " " + playbackPosition.ToString("0.000") + " " + noteInterval.nextBeatTime.ToString("0.000") + " " + noteInterval.beatLength.ToString("0.000"));
                             EmitSignal(SignalName.QuarterBeat);
                             break;
                         case NoteType.Eighth:
@@ -120,13 +121,24 @@ public override void _Process(double delta)
             return true;
 
         }
-        else if (playbackPosition < noteInterval.beatLength && noteInterval.nextBeatTime == 8.0 &&noteInterval.lastBeatPlayed != noteInterval.nextBeatTime)
+        if (
+            playbackPosition < noteInterval.beatLength 
+            && Math.Abs(noteInterval.nextBeatTime - LastBeatTime(noteInterval)) < 0.01 
+            && Math.Abs(noteInterval.lastBeatPlayed - noteInterval.nextBeatTime) > 0.01)
         {
             noteInterval.nextBeatTime = noteInterval.beatLength;
-            EmitSignal("WholeBeatEventHandler");
             return true;
         }
         return false;
+    }
+
+    private double LastBeatTime(NoteInterval noteInterval)
+    {
+        var audioStreamLength = audioStreamPlayer.Stream.GetLength();
+        //examples: if beat length is 0.5 last beat is 8.0 for a 8.25 second audio stream
+        //if beat length is 0.25 last beat is 8.25 for a 8.25 second audio stream
+        //calculate the last beat time for the current note type
+        return  audioStreamLength - (audioStreamLength % noteInterval.beatLength);
     }
 
     public TimingAccuracy IsInBeat()
