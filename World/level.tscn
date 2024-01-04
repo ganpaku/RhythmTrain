@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://bvahvjiktwoxq"]
 
-[ext_resource type="PackedScene" uid="uid://7v2wra8bi5kw" path="res://World/AllSkyFree_Sky_AnotherPlanet.tscn" id="1_5vhro"]
+[ext_resource type="PackedScene" path="res://World/AllSkyFree_Sky_AnotherPlanet.tscn" id="1_5vhro"]
 [ext_resource type="PackedScene" uid="uid://bwbn2iui54g0y" path="res://Player/player.tscn" id="1_7legx"]
 [ext_resource type="Script" path="res://World/Conductor.cs" id="1_an4j4"]
 [ext_resource type="Script" path="res://World/LanePath.gd" id="2_ql2os"]
@@ -44,12 +44,6 @@ script = ExtResource("1_an4j4")
 stream = ExtResource("2_vow6x")
 autoplay = true
 
-[node name="ColorRect" type="ColorRect" parent="Conductor"]
-offset_left = 63.0
-offset_top = 66.0
-offset_right = 103.0
-offset_bottom = 106.0
-
 [node name="Player" parent="." instance=ExtResource("1_7legx")]
 
 [node name="LaneMarkers" type="Node3D" parent="."]
@@ -79,7 +73,7 @@ curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="LaneMiddle"]
-transform = Transform3D(-3.99079e-08, 0.695547, -0.718466, -1.19208e-07, 0.718468, 0.695545, 0.999992, 1.13406e-07, 5.42427e-08, 61.6815, 0.495672, 1.59694e-06)
+transform = Transform3D(-1.01414e-07, 0.695547, -0.718466, -5.96042e-08, 0.718468, 0.695545, 0.999992, 1.13363e-07, -3.14051e-08, 61.6815, 0.495667, 1.59694e-06)
 progress = 70.8157
 tilt_enabled = false
 

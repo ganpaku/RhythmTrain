@@ -67,15 +67,14 @@ public partial class Conductor : Node
         noteIntervals.Add(new NoteInterval(NoteType.Eighth,beatLength));
     }
 
-    private double CalculateBeatLength()
-    {
-        return  60.0 / bpm;
-    }
-
+   
    
 
 public override void _Process(double delta)
 {
+    // Test Area start
+   
+    // Test Area end
     playbackPosition = audioStreamPlayer.GetPlaybackPosition() + AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency();
     if (audioStreamPlayer.Playing)
         {
@@ -104,7 +103,95 @@ public override void _Process(double delta)
             }
             previousPlaybackPosition = playbackPosition;
         }
-       
+}
+
+#region public methods
+
+/// <summary>
+/// For quarter notes only. Calculates distance to the next beat with the current playback position
+/// </summary>
+/// <returns>a double between 0.0 and 1.0 representing the distance to the next beat. min Value when no beat is found</returns>
+public double GetBeatProgressQuarter()
+{
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    return GetBeatProgress(noteInterval);
+}
+/// <summary>
+/// For eighth notes only. Calculates distance to the next beat with the current playback position
+/// </summary>
+/// <returns>a double between 0.0 and 1.0 representing the distance to the next beat. min Value when no beat is found</returns>
+public double GetBeatProgressEighth()
+{
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    return GetBeatProgress(noteInterval);
+}
+/// <summary>
+/// For half notes only. Calculates distance to the next beat with the current playback position
+/// </summary>
+/// <returns>a double between 0.0 and 1.0 representing the distance to the next beat. min Value when no beat is found</returns>
+public double GetBeatProgressHalf()
+{
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    return GetBeatProgress(noteInterval);
+}
+
+/// <summary>
+/// For whole notes only. Calculates distance to the next beat with the current playback position
+/// </summary>
+/// <returns>a double between 0.0 and 1.0 representing the distance to the next beat. min Value when no beat is found</returns>
+public double GetBeatProgressWhole()
+{
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    return GetBeatProgress(noteInterval);
+}
+
+/// <summary>
+/// Returns the current timing accuracy, based on the current playback position
+/// </summary>
+/// <returns></returns>
+public TimingAccuracy IsInBeat()
+{
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    double timeUntilNextBeat = noteInterval.nextBeatTime - playbackPosition;
+    double timeSinceLastBeat = audioStreamPlayer.GetPlaybackPosition() - (noteInterval.nextBeatTime - noteInterval.beatLength);
+    //adjust for input lag
+    timeUntilNextBeat -= InputLagInMilliseconds / 1000.0;
+    timeSinceLastBeat -= InputLagInMilliseconds / 1000.0;
+    var adjustedHitTime = playbackPosition - InputLagInMilliseconds / 1000.0;
+    GD.Print("adjustedHitTime = "+ adjustedHitTime.ToString("0.000") + " " + "nextBeatTime = " + noteInterval.nextBeatTime.ToString("0.000") + " " + "timeUntilNextBeat = " + timeUntilNextBeat.ToString("0.000") + " " + "timeSinceLastBeat = " + timeSinceLastBeat.ToString("0.000") );
+
+    if (Math.Abs(timeUntilNextBeat) < 0.015 || Math.Abs(timeSinceLastBeat) < 0.015) // Perfect timing 
+    {
+        GD.Print("Perfect!");
+        return TimingAccuracy.Perfect;
+    }
+    else if (Math.Abs(timeUntilNextBeat) < 0.04 || Math.Abs(timeSinceLastBeat) < 0.04) // OK timing 
+    {
+        GD.Print("OK!");
+        return TimingAccuracy.OK;
+    }
+    else // Missed timing
+    {
+        GD.Print("Miss!");
+        return TimingAccuracy.Miss;
+    }
+}
+
+#endregion
+
+#region private methods
+
+
+private double GetBeatProgress(NoteInterval noteInterval)
+{
+    var progress = double.MinValue;
+    if (noteInterval != null)
+    {
+        
+        progress = (noteInterval.nextBeatTime - playbackPosition) / noteInterval.beatLength;
+    }
+    GD.Print("beat progress = " + progress.ToString("0.000"));
+    return progress;
 }
 
     private bool CheckForBeat(NoteInterval noteInterval)
@@ -131,7 +218,8 @@ public override void _Process(double delta)
         }
         return false;
     }
-
+    //Utils
+    
     private double LastBeatTime(NoteInterval noteInterval)
     {
         var audioStreamLength = audioStreamPlayer.Stream.GetLength();
@@ -140,32 +228,11 @@ public override void _Process(double delta)
         //calculate the last beat time for the current note type
         return  audioStreamLength - (audioStreamLength % noteInterval.beatLength);
     }
-
-    public TimingAccuracy IsInBeat()
+    
+    private double CalculateBeatLength()
     {
-        var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
-        double timeUntilNextBeat = noteInterval.nextBeatTime - playbackPosition;
-        double timeSinceLastBeat = audioStreamPlayer.GetPlaybackPosition() - (noteInterval.nextBeatTime - noteInterval.beatLength);
-        //adjust for input lag
-        timeUntilNextBeat -= InputLagInMilliseconds / 1000.0;
-        timeSinceLastBeat -= InputLagInMilliseconds / 1000.0;
-        var adjustedHitTime = playbackPosition - InputLagInMilliseconds / 1000.0;
-        GD.Print("adjustedHitTime = "+ adjustedHitTime.ToString("0.000") + " " + "nextBeatTime = " + noteInterval.nextBeatTime.ToString("0.000") + " " + "timeUntilNextBeat = " + timeUntilNextBeat.ToString("0.000") + " " + "timeSinceLastBeat = " + timeSinceLastBeat.ToString("0.000") );
-
-        if (Math.Abs(timeUntilNextBeat) < 0.015 || Math.Abs(timeSinceLastBeat) < 0.015) // Perfect timing 
-        {
-            GD.Print("Perfect!");
-            return TimingAccuracy.Perfect;
-        }
-        else if (Math.Abs(timeUntilNextBeat) < 0.04 || Math.Abs(timeSinceLastBeat) < 0.04) // OK timing 
-        {
-            GD.Print("OK!");
-            return TimingAccuracy.OK;
-        }
-        else // Missed timing
-        {
-            GD.Print("Miss!");
-            return TimingAccuracy.Miss;
-        }
+        return  60.0 / bpm;
     }
+
+    #endregion
 }
