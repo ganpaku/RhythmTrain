@@ -71,8 +71,12 @@ func _on_hurtbox_area_entered(area):
 
 func _on_conductor_quarter_note():
 	#beat_anim.play("EveryBeatSquash")
-	
-	pass # Replace with function body.
+	# small scale up anim
+	if(conductor.GetBeatProgressWhole() >0.95):
+		return
+	var tween = create_tween()
+	tween.tween_property(model_transform, "scale", Vector3(1.05,1.05,1.05), 0.05).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(model_transform, "scale", Vector3(1.0,1.0,1.0), 0.05).set_ease(Tween.EASE_OUT)
 
 
 func _on_conductor_whole_note():

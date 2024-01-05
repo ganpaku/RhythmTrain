@@ -130,7 +130,7 @@ public double GetBeatProgressQuarter()
 /// <returns>a double between 0.0 and 1.0 representing the distance to the next beat. min Value when no beat is found</returns>
 public double GetBeatProgressEighth()
 {
-    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Eighth);
     return GetBeatProgress(noteInterval);
 }
 /// <summary>
@@ -139,7 +139,7 @@ public double GetBeatProgressEighth()
 /// <returns>a double between 0.0 and 1.0 representing the distance to the next beat. min Value when no beat is found</returns>
 public double GetBeatProgressHalf()
 {
-    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Half);
     return GetBeatProgress(noteInterval);
 }
 
@@ -149,7 +149,7 @@ public double GetBeatProgressHalf()
 /// <returns>a double between 0.0 and 1.0 representing the distance to the next beat. min Value when no beat is found</returns>
 public double GetBeatProgressWhole()
 {
-    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Whole);
     return GetBeatProgress(noteInterval);
 }
 
@@ -198,7 +198,6 @@ private double GetBeatProgress(NoteInterval noteInterval)
 
         progress = (noteInterval.nextBeatTime - playbackPosition) / noteInterval.beatLength;
     }
-    GD.Print("beat progress = " + progress.ToString("0.000"));
     return progress;
 }
 
