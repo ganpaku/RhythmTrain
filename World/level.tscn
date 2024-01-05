@@ -73,7 +73,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
-leftLaneList = Array[String](["m", "", "o", "", "m", "", "o", "", "m", "", "m", "", "o", "", "m", "", "m", "", "m", ""])
+leftLaneList = Array[String](["m", "", "o", "", "m", "", "o", "", "m", ""])
 
 [node name="PathFollow3D" type="PathFollow3D" parent="LaneLeft"]
 transform = Transform3D(-3.51255e-08, 0.16243, -0.986694, 5.21536e-08, 0.986696, 0.162429, 0.999992, -4.57547e-08, -4.31298e-08, 118.688, 2.1272, -1.44e-05)
@@ -191,12 +191,9 @@ transform = Transform3D(-2.09815e-07, 0, -1, 0, 3, 0, 4.8, 0, -4.37114e-08, 0, 0
 transform = Transform3D(2, 2.22045e-16, 2.84217e-14, 0, 1, -1.19209e-07, 2.84217e-14, -5.28769e-16, -36.474, 0, -4.76837e-07, -32.8739)
 
 [node name="Retrowave_Terrain" parent="." instance=ExtResource("10_c8akx")]
-transform = Transform3D(-1.07017e-07, 0, -2.44826, 0, 2.44826, 0, 2.44826, 0, -1.07017e-07, 221, -0.539123, 0)
-visible = false
+transform = Transform3D(-1.07017e-07, 0, -2.44826, 0, 2.44826, 0, 2.44826, 0, -1.07017e-07, 221, -1.27968, 0)
 script = ExtResource("11_niujg")
 
-[connection signal="EighthBeat" from="Conductor" to="Player" method="_on_conductor_eighth_beat"]
-[connection signal="HalfBeat" from="Conductor" to="Player" method="_on_conductor_half_beat"]
 [connection signal="QuarterBeat" from="Conductor" to="Player" method="_on_conductor_quarter_beat"]
 [connection signal="WholeBeat" from="Conductor" to="Player" method="_on_conductor_whole_beat"]
 

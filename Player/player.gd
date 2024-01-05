@@ -53,11 +53,7 @@ func beatAnimTween():
 	var tween = create_tween()
 	tween.tween_property(model_transform, "scale", Vector3(1.3,1.3,1.3), 0.05).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(model_transform, "scale", Vector3(1.0,1.0,1.0), 0.05).set_ease(Tween.EASE_OUT)
-func _on_conductor_half_beat():
-	pass
-	
-func _on_conductor_eighth_beat():
-	pass
+
 
 func _on_conductor_quarter_beat():
 	#beat_anim.play("EveryBeatSquash")
@@ -73,9 +69,6 @@ func _on_hurtbox_area_entered(area):
 		print(health)
 		if health <= 0:
 			emit_signal("noHealth")
-
-
-
 
 func _on_conductor_whole_beat():
 	pass # Replace with function body.
