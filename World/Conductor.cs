@@ -44,13 +44,13 @@ public partial class Conductor : Node
     private int InputLagInMilliseconds = 100;
 
     //Beat Signals
-	[Signal] public delegate void WholeBeatEventHandler();
-	[Signal] public delegate void HalfBeatEventHandler();
-	[Signal] public delegate void QuarterBeatEventHandler();
-	[Signal] public delegate void EighthBeatEventHandler();
+    [Signal] public delegate void WholeBeatEventHandler();
+    [Signal] public delegate void HalfBeatEventHandler();
+    [Signal] public delegate void QuarterBeatEventHandler();
+    [Signal] public delegate void EighthBeatEventHandler();
 
     //Private variables
-    private double bpm = 120.0;
+    [Export] private double bpm = 120.0;
 
     private AudioStreamPlayer audioStreamPlayer = null;
      private double previousPlaybackPosition = 0.0;

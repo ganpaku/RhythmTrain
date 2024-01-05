@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/RhythmTrain 1min test_90bpm.mp3-0229acf54204e
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
-bpm=0
+bpm=90.0
 beat_count=0
 bar_beats=4

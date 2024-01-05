@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dykksysx8o160"
+
+[deps]
+
+files=["res://World/Lanes/LaneSpawn.laneleft.translation", "res://World/Lanes/LaneSpawn.lanemiddle.translation", "res://World/Lanes/LaneSpawn.laneright.translation"]
+
+source_file="res://World/Lanes/LaneSpawn.csv"
+dest_files=["res://World/Lanes/LaneSpawn.laneleft.translation", "res://World/Lanes/LaneSpawn.lanemiddle.translation", "res://World/Lanes/LaneSpawn.laneright.translation"]
+
+[params]
+
+compress=true
+delimiter=0

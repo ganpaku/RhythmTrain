@@ -1,12 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://bvahvjiktwoxq"]
+[gd_scene load_steps=17 format=3 uid="uid://bvahvjiktwoxq"]
 
-[ext_resource type="PackedScene" uid="uid://7v2wra8bi5kw" path="res://World/AllSkyFree_Sky_AnotherPlanet.tscn" id="1_5vhro"]
+[ext_resource type="PackedScene" uid="uid://7v2wra8bi5kw" path="res://World/Skybox/AllSkyFree_Sky_AnotherPlanet.tscn" id="1_5vhro"]
 [ext_resource type="PackedScene" uid="uid://bwbn2iui54g0y" path="res://Player/player.tscn" id="1_7legx"]
 [ext_resource type="Script" path="res://World/Conductor.cs" id="1_an4j4"]
 [ext_resource type="Script" path="res://World/LanePath.gd" id="2_ql2os"]
-[ext_resource type="AudioStream" uid="uid://crpha1wly1ffe" path="res://Audio/Music/RhythmTrain_testLoop_120bpm.mp3" id="2_vow6x"]
 [ext_resource type="PackedScene" uid="uid://cfexyanvijbm1" path="res://Obstacles/BlockObst.tscn" id="3_ns4te"]
+[ext_resource type="AudioStream" uid="uid://cglted1r885g1" path="res://Audio/Music/RhythmTrain 1min test_90bpm.mp3" id="3_yk8xu"]
 [ext_resource type="Texture2D" uid="uid://ctfsydqn46hrn" path="res://icon.svg" id="7_0qp3b"]
+[ext_resource type="PackedScene" uid="uid://cv1g7xl5beyww" path="res://BeatMarker/BeatMarker_default.blend" id="7_hwy8o"]
 [ext_resource type="Script" path="res://World/LaneScrollerPath.gd" id="8_7uxji"]
 [ext_resource type="PackedScene" uid="uid://copjc7deimdty" path="res://World/Lanes/Lane_Track.blend" id="8_mdg4s"]
 [ext_resource type="PackedScene" uid="uid://binprulqbg75p" path="res://World/Terrain/Retrowave_Terrain.blend" id="10_c8akx"]
@@ -14,7 +15,7 @@
 
 [sub_resource type="Curve3D" id="Curve3D_bmpdo"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -8, 0, 0, -10.3544, -0.544965, 0, 10.3544, 0.544965, 0, 71.8124, 2.25159, 0, -8.81342, 11.4607, -1.90735e-05, 8.81342, -11.4607, 1.90735e-05, 133.949, -4.46617, -7.62939e-06),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, -10.3544, -0.544965, 0, 10.3544, 0.544965, 0, 71.8124, 2.25159, 0, -8.81342, 11.4607, -1.90735e-05, 8.81342, -11.4607, 1.90735e-05, 133.949, -4.46617, -7.62939e-06),
 "tilts": PackedFloat32Array(0, 1.5708, 0)
 }
 point_count = 3
@@ -39,23 +40,20 @@ point_count = 3
 
 [node name="Level" type="Node3D"]
 
+[node name="AllSkyFree_Sky_AnotherPlanet" parent="." instance=ExtResource("1_5vhro")]
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, -8.8535, 0)
 light_color = Color(1, 0.819608, 0.709804, 1)
 shadow_enabled = true
 
-[node name="AllSkyFree_Sky_AnotherPlanet" parent="." instance=ExtResource("1_5vhro")]
-
-[node name="DirectionalLight_AnotherPlanet" parent="AllSkyFree_Sky_AnotherPlanet" index="1"]
-transform = Transform3D(1, 0, 0, 0, -0.925718, -0.378214, 0, 0.378214, -0.925718, 0, 26.5368, 0)
-light_energy = 1.0
-light_indirect_energy = 1.0
-
 [node name="Conductor" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("1_an4j4")
+bpm = 90.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Conductor"]
-stream = ExtResource("2_vow6x")
+stream = ExtResource("3_yk8xu")
 autoplay = true
 
 [node name="ColorRect" type="ColorRect" parent="Conductor"]
@@ -77,36 +75,49 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
 [node name="LaneLeft" type="Path3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
+leftLaneList = Array[String](["m", "", "o", "", "m", "", "o", "", "m", "", "m", "", "o", "", "m", "", "m", "", "m", ""])
 
 [node name="PathFollow3D" type="PathFollow3D" parent="LaneLeft"]
-transform = Transform3D(7.54233e-08, -0.0397055, -0.999199, 1.86263e-09, 0.999202, -0.0397054, 0.999992, 1.13358e-09, 7.54374e-08, 69.3552, 2.14225, 0)
-progress = 77.3874
+transform = Transform3D(-3.51255e-08, 0.16243, -0.986694, 5.21536e-08, 0.986696, 0.162429, 0.999992, -4.57547e-08, -4.31298e-08, 118.688, 2.1272, -1.44e-05)
+progress = 118.821
 tilt_enabled = false
 
-[node name="RigidBody3D" parent="LaneLeft/PathFollow3D" instance=ExtResource("3_ns4te")]
+[node name="BeatMarker_default" parent="LaneLeft/PathFollow3D" instance=ExtResource("7_hwy8o")]
+transform = Transform3D(1.58, 1.41279e-07, 1.50048e-07, -4.68811e-08, 1.36656, -0.793041, -2.0069e-07, 0.793041, 1.36656, 0, -0.497516, 0.196251)
+
+[node name="PathFollow3D2" type="PathFollow3D" parent="LaneLeft"]
+transform = Transform3D(3.14267e-07, 0.0145726, -0.999868, 2.42142e-08, 0.99987, 0.0145726, 0.999992, -2.8791e-08, 3.13875e-07, 101.779, 3.4271, -1.04065e-05)
+progress = 101.847
+tilt_enabled = false
+
+[node name="BeatMarker_default" parent="LaneLeft/PathFollow3D2" instance=ExtResource("7_hwy8o")]
+transform = Transform3D(1.58, 1.41279e-07, 1.50048e-07, -4.68811e-08, 1.36656, -0.793041, -2.0069e-07, 0.793041, 1.36656, 0, -0.497516, 0.196251)
 
 [node name="LaneMiddle" type="Path3D" parent="."]
+unique_name_in_owner = true
 curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="LaneMiddle"]
-transform = Transform3D(-1.62859e-07, -0.032424, -0.999462, -1.86263e-09, 0.999465, -0.0324239, 0.999992, -3.41893e-09, -1.62833e-07, 62.7897, 1.91124, 0)
-progress = 70.8157
+transform = Transform3D(-1.22071e-06, 0.79267, -0.609629, 7.45052e-07, 0.609631, 0.792668, 0.999992, 5.13418e-07, -1.33477e-06, 133.949, -4.46601, -7.62965e-06)
+progress = 135.795
 tilt_enabled = false
 
 [node name="RigidBody3D" parent="LaneMiddle/PathFollow3D" instance=ExtResource("3_ns4te")]
 
 [node name="LaneRight" type="Path3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="LaneRight"]
-transform = Transform3D(7.54152e-08, -0.0440251, -0.999017, 1.86263e-09, 0.999021, -0.044025, 0.999992, 1.45937e-09, 7.54237e-08, 70.6532, 2.19633, 0)
-progress = 78.6841
+transform = Transform3D(-1.22071e-06, 0.792669, -0.609628, 7.45052e-07, 0.60963, 0.792666, 0.999992, 5.13417e-07, -1.33477e-06, 133.949, -4.46601, -7.62965e-06)
+progress = 135.795
 tilt_enabled = false
 
 [node name="RigidBody3D" parent="LaneRight/PathFollow3D" instance=ExtResource("3_ns4te")]
@@ -158,7 +169,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.599
 transform = Transform3D(-2.09815e-07, 0, -1, 0, 3, 0, 4.8, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="PathLaneChunk3" type="PathFollow3D" parent="LaneScrollerPath"]
-transform = Transform3D(-4.37114e-08, 0, -0.999964, 0, 0.999964, 0, 1, 0, -4.37098e-08, 52.4452, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -0.999964, 0, 0.999964, 0, 1, 0, -4.37098e-08, 52.445, 0, 0)
 progress = 136.445
 tilt_enabled = false
 
@@ -172,7 +183,7 @@ transform = Transform3D(-2.09815e-07, 0, -1, 0, 3, 0, 4.8, 0, -4.37114e-08, 0, 0
 transform = Transform3D(2, 2.22045e-16, 2.84217e-14, 0, 1, -1.19209e-07, 2.84217e-14, -5.28769e-16, -36.474, 0, -4.76837e-07, -32.8739)
 
 [node name="PathLaneChunk4" type="PathFollow3D" parent="LaneScrollerPath"]
-transform = Transform3D(-1.62681e-07, 0.0642456, -0.997899, 3.72529e-09, 0.997899, 0.0642456, 1, 6.73406e-09, -1.62578e-07, 118.749, -0.962968, 0)
+transform = Transform3D(-1.62681e-07, 0.0642453, -0.997898, 3.72529e-09, 0.997898, 0.0642453, 1, 6.73402e-09, -1.62578e-07, 118.749, -0.962963, 0)
 progress = 202.768
 tilt_enabled = false
 
@@ -187,13 +198,14 @@ transform = Transform3D(2, 2.22045e-16, 2.84217e-14, 0, 1, -1.19209e-07, 2.84217
 
 [node name="Retrowave_Terrain" parent="." instance=ExtResource("10_c8akx")]
 transform = Transform3D(-1.07017e-07, 0, -2.44826, 0, 2.44826, 0, 2.44826, 0, -1.07017e-07, 221, -0.539123, 0)
+visible = false
 script = ExtResource("11_niujg")
 
 [connection signal="EighthBeat" from="Conductor" to="Player" method="_on_conductor_eighth_beat"]
 [connection signal="HalfBeat" from="Conductor" to="Player" method="_on_conductor_half_beat"]
 [connection signal="QuarterBeat" from="Conductor" to="Player" method="_on_conductor_quarter_beat"]
+[connection signal="WholeBeat" from="Conductor" to="Player" method="_on_conductor_whole_beat"]
 
-[editable path="AllSkyFree_Sky_AnotherPlanet"]
 [editable path="LaneScrollerPath/PathLaneChunk1/Track/Lane_Track"]
 [editable path="LaneScrollerPath/PathLaneChunk2/Track/Lane_Track"]
 [editable path="LaneScrollerPath/PathLaneChunk3/Track/Lane_Track"]

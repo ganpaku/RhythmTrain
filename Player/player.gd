@@ -8,7 +8,11 @@ var currentLane
 @onready var beat_anim = %BeatAnim
 @onready var player_model = %PlayerModel_cube1
 @onready var model_transform = %ModelTransform
+@onready var ring_particles = $RingParticles
+
+
 @export var maxHealth = 3
+@export var invincible = false
 var health
 var isHopping = false
 signal noHealth
@@ -51,24 +55,30 @@ func beatAnimTween():
 	tween.tween_property(model_transform, "scale", Vector3(1.0,1.0,1.0), 0.05).set_ease(Tween.EASE_OUT)
 func _on_conductor_half_beat():
 	pass
-	#position.y += 4
-
-
+	
 func _on_conductor_eighth_beat():
 	pass
 
 func _on_conductor_quarter_beat():
 	#beat_anim.play("EveryBeatSquash")
-	beatAnimTween()
+	
 	pass # Replace with function body.
 
 func _on_no_health():
 	queue_free()
 
 func _on_hurtbox_area_entered(area):
-	health -= 1
-	print(health)
-	if health <= 0:
-		emit_signal("noHealth")
+	if !invincible:
+		health -= 1
+		print(health)
+		if health <= 0:
+			emit_signal("noHealth")
 
+
+
+
+func _on_conductor_whole_beat():
+	pass # Replace with function body.
+	beatAnimTween()
+	ring_particles.emitting = true
 

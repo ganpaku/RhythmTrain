@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bwbn2iui54g0y"]
+[gd_scene load_steps=19 format=3 uid="uid://bwbn2iui54g0y"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_hcme3"]
 [ext_resource type="PackedScene" uid="uid://bqfyqonms47px" path="res://Player/PlayerModel_cube1.blend" id="2_aiwv2"]
@@ -141,11 +141,33 @@ _data = {
 "RESET": SubResource("Animation_s73pp")
 }
 
+[sub_resource type="Gradient" id="Gradient_yuywc"]
+colors = PackedColorArray(8.18223e-07, 0.31702, 0.351191, 1, 0.969596, 0.134107, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_w11f3"]
+gradient = SubResource("Gradient_yuywc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1517j"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_max = 1.6
+color_ramp = SubResource("GradientTexture1D_w11f3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ow21f"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="TorusMesh" id="TorusMesh_o8x4g"]
+material = SubResource("StandardMaterial3D_ow21f")
+inner_radius = 1.035
+
 [node name="Player" type="RigidBody3D"]
 collision_mask = 2
 mass = 0.01
 gravity_scale = 0.0
 script = ExtResource("1_hcme3")
+invincible = true
 
 [node name="Hurtbox" type="Area3D" parent="."]
 collision_mask = 2
@@ -172,7 +194,7 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_lw4ap")
 }
-speed_scale = 2.4
+speed_scale = 3.0
 
 [node name="BeatAnim" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
@@ -192,6 +214,17 @@ unique_name_in_owner = true
 [node name="PlayerModel_cube1" parent="ModelTransform" instance=ExtResource("2_aiwv2")]
 unique_name_in_owner = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="RingParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.385512, 0)
+emitting = false
+amount = 50
+lifetime = 0.3
+interp_to_end = 0.1
+one_shot = true
+preprocess = 0.17
+process_material = SubResource("ParticleProcessMaterial_1517j")
+draw_pass_1 = SubResource("TorusMesh_o8x4g")
 
 [connection signal="noHealth" from="." to="." method="_on_no_health"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
