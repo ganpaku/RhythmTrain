@@ -5,18 +5,16 @@
 [ext_resource type="Script" path="res://World/Conductor.cs" id="1_an4j4"]
 [ext_resource type="Script" path="res://World/LanePath.gd" id="2_ql2os"]
 [ext_resource type="AudioStream" uid="uid://cglted1r885g1" path="res://Audio/Music/RhythmTrain 1min test_90bpm.mp3" id="3_yk8xu"]
+[ext_resource type="PackedScene" uid="uid://djv8174a6x0af" path="res://BeatMarker/BeatMarkerFollow.tscn" id="6_lpyb7"]
 [ext_resource type="Texture2D" uid="uid://ctfsydqn46hrn" path="res://icon.svg" id="7_0qp3b"]
 [ext_resource type="Script" path="res://World/LaneScrollerPath.gd" id="8_7uxji"]
 [ext_resource type="PackedScene" uid="uid://copjc7deimdty" path="res://World/Lanes/Lane_Track.blend" id="8_mdg4s"]
 [ext_resource type="PackedScene" uid="uid://binprulqbg75p" path="res://World/Terrain/Retrowave_Terrain.blend" id="10_c8akx"]
 [ext_resource type="Script" path="res://World/Terrain/Retrowave_Terrain.gd" id="11_niujg"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2go68"]
-size = Vector3(1.30115, 2.48352, 10.6284)
-
 [sub_resource type="Curve3D" id="Curve3D_bmpdo"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.764624, 0.00949064, 0, -10.3544, -0.544965, 0, 10.3544, 0.544965, 0, 71.8124, 2.25159, 0, -8.81342, 11.4607, -1.90735e-05, 8.81342, -11.4607, 1.90735e-05, 133.949, -4.46617, -7.62939e-06),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, -10.3544, -0.544965, 0, 10.3544, 0.544965, 0, 71.8124, 2.25159, 0, -8.81342, 11.4607, -1.90735e-05, 8.81342, -11.4607, 1.90735e-05, 133.949, -4.46617, -7.62939e-06),
 "tilts": PackedFloat32Array(0, 1.5708, 0)
 }
 point_count = 3
@@ -59,13 +57,6 @@ autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("1_7legx")]
 
-[node name="ObjectDeleteArea" type="Area3D" parent="."]
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ObjectDeleteArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.577644, 0.74176, -0.217255)
-shape = SubResource("BoxShape3D_2go68")
-
 [node name="LaneMarkers" type="Node3D" parent="."]
 
 [node name="LaneLeft" type="Marker3D" parent="LaneMarkers"]
@@ -81,22 +72,22 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
-laneList = Array[String](["m", "", "m", "o", "m", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", ""])
+leftLaneList = Array[String](["m", "", "o", "", "m", "", "o", "", "m", ""])
+
+[node name="BeatMarkerFollow" parent="LaneLeft" instance=ExtResource("6_lpyb7")]
+transform = Transform3D(-1.14311e-06, 0.792689, -0.609586, 8.04656e-07, 0.609587, 0.792687, 0.999992, 4.15626e-07, -1.33468e-06, 133.949, -4.46617, -7.62939e-06)
+progress = 135.795
 
 [node name="LaneMiddle" type="Path3D" parent="."]
 unique_name_in_owner = true
 curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
-laneType = 1
-laneList = Array[String](["m", "o", "m", "", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "m", "", "m", "", "m", "", "m", "", "m", "", "m", ""])
 
 [node name="LaneRight" type="Path3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
-laneType = 2
-laneList = Array[String](["o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "", "m", "", "m", "", "m", "m", "m", "m", "m", "m", "m", "m", "o", "m"])
 
 [node name="W_Plane1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.0880751, 0, -2.1, 0)

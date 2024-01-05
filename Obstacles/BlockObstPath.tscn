@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn13y4ovdtifd"]
+
+[ext_resource type="Script" path="res://Obstacles/BlockObstPath.gd" id="1_8xbdd"]
+[ext_resource type="PackedScene" uid="uid://cfexyanvijbm1" path="res://Obstacles/BlockObst.tscn" id="1_bneng"]
+
+[node name="BlockObstPath" type="PathFollow3D" groups=["Object"]]
+transform = Transform3D(-1.22071e-06, 0.79267, -0.609629, 7.45052e-07, 0.609631, 0.792668, 0.999992, 5.13418e-07, -1.33477e-06, 133.949, -4.46601, -7.62965e-06)
+loop = false
+tilt_enabled = false
+script = ExtResource("1_8xbdd")
+
+[node name="BlockObst" parent="." instance=ExtResource("1_bneng")]
+collision_mask = 3
+script = null
+
+[connection signal="area_entered" from="BlockObst" to="." method="_on_block_obst_area_entered"]

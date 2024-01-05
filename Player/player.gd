@@ -56,8 +56,8 @@ func beatAnimTween():
 
 
 func _on_conductor_quarter_beat():
-	#beat_anim.play("EveryBeatSquash")
-	
+	beatAnimTween()
+	ring_particles.emitting = true
 	pass # Replace with function body.
 
 func _on_no_health():
@@ -72,6 +72,5 @@ func _on_hurtbox_area_entered(area):
 
 func _on_conductor_whole_beat():
 	pass # Replace with function body.
-	beatAnimTween()
-	ring_particles.emitting = true
+
 

@@ -1,7 +1,22 @@
 [gd_scene load_steps=6 format=3 uid="uid://cfexyanvijbm1"]
 
-[ext_resource type="Script" path="res://Obstacles/BlockObst.gd" id="1_3cn64"]
 [ext_resource type="PackedScene" uid="uid://cbxdy8d5oce00" path="res://Obstacles/sphea doodle.blend" id="1_hnmsy"]
+
+[sub_resource type="GDScript" id="GDScript_81u70"]
+script/source = "extends Area3D
+@onready var sphea_doodle = %\"sphea doodle\"
+@export var rotationSpeed = 50
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+	#sphea_doodle.rotation.x += rotationSpeed * delta
+"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j43vr"]
 size = Vector3(1, 1, 0.5)
@@ -14,7 +29,7 @@ material = SubResource("StandardMaterial3D_w6k8n")
 
 [node name="BlockObst" type="Area3D"]
 collision_layer = 2
-script = ExtResource("1_3cn64")
+script = SubResource("GDScript_81u70")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, -2.98583e-08, -2.32831e-10, 2.08561e-07, 1, 5.82478e-10, 2.32831e-10, 2.26414e-10, 1, 0, 0.5, 0)

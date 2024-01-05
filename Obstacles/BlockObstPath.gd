@@ -1,6 +1,5 @@
-extends Area3D
-@onready var sphea_doodle = %"sphea doodle"
-@export var rotationSpeed = 50
+extends PathFollow3D
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,4 +9,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-	#sphea_doodle.rotation.x += rotationSpeed * delta
+
+
+func _on_block_obst_area_entered(area):
+	queue_free()

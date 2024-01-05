@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://djv8174a6x0af"]
+
+[ext_resource type="PackedScene" uid="uid://cv1g7xl5beyww" path="res://BeatMarker/BeatMarker_default.blend" id="1_0chwd"]
+[ext_resource type="Script" path="res://BeatMarker/BeatMarkerFollow.gd" id="1_1cb6v"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_54ikv"]
+size = Vector3(1, 0.225555, 0.315369)
+
+[node name="BeatMarkerFollow" type="PathFollow3D" groups=["Object"]]
+transform = Transform3D(-3.51255e-08, 0.16243, -0.986694, 5.21536e-08, 0.986696, 0.162429, 0.999992, -4.57547e-08, -4.31298e-08, 118.688, 2.1272, -1.44e-05)
+loop = false
+tilt_enabled = false
+script = ExtResource("1_1cb6v")
+
+[node name="BeatMarker_default" parent="." instance=ExtResource("1_0chwd")]
+transform = Transform3D(1.58, 1.41279e-07, 1.50048e-07, -4.68811e-08, 1.36656, -0.793041, -2.0069e-07, 0.793041, 1.36656, 0, -0.497516, 0.196251)
+
+[node name="Area3D" type="Area3D" parent="BeatMarker_default"]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BeatMarker_default/Area3D"]
+transform = Transform3D(1, -5.32907e-15, -1.42109e-14, -6.43041e-13, 1, 5.96046e-08, 2.62901e-13, 2.27332e-15, 1, 2.27374e-12, -0.00646591, 0.00257111)
+shape = SubResource("BoxShape3D_54ikv")
+
+[connection signal="area_entered" from="BeatMarker_default/Area3D" to="." method="_on_area_3d_area_entered"]
