@@ -55,11 +55,6 @@ func beatAnimTween():
 	tween.tween_property(model_transform, "scale", Vector3(1.0,1.0,1.0), 0.05).set_ease(Tween.EASE_OUT)
 
 
-func _on_conductor_quarter_beat():
-	#beat_anim.play("EveryBeatSquash")
-	
-	pass # Replace with function body.
-
 func _on_no_health():
 	queue_free()
 
@@ -70,8 +65,16 @@ func _on_hurtbox_area_entered(area):
 		if health <= 0:
 			emit_signal("noHealth")
 
-func _on_conductor_whole_beat():
+
+
+
+
+func _on_conductor_quarter_note():
+	#beat_anim.play("EveryBeatSquash")
+	
 	pass # Replace with function body.
+
+
+func _on_conductor_whole_note():
 	beatAnimTween()
 	ring_particles.emitting = true
-

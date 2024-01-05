@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
   public enum TimingAccuracy { Perfect, OK, Miss }
-    public enum NoteType { Whole, Half, Quarter, Eighth }
+    public enum NoteType { Whole, Half, Quarter, Eighth,Sixteenth }
     //contains nextBeatTime, BeatLength, NoteType and lastBeatPlayed
   public class NoteInterval
   {
@@ -30,6 +30,9 @@ using Godot;
                 case NoteType.Eighth:
                     beatLength = beatLengthInSeconds/2.0;
                     break;
+                case NoteType.Sixteenth:
+                    beatLength = beatLengthInSeconds/4.0;
+                    break;
                 default:
                     beatLength = 8.0;
                     break;
@@ -44,10 +47,11 @@ public partial class Conductor : Node
     private int InputLagInMilliseconds = 100;
     [Export] private double bpm = 120.0;
     //Beat Signals
-    [Signal] public delegate void WholeBeatEventHandler();
-    [Signal] public delegate void HalfBeatEventHandler();
-    [Signal] public delegate void QuarterBeatEventHandler();
-    [Signal] public delegate void EighthBeatEventHandler();
+    [Signal] public delegate void WholeNoteEventHandler();
+    [Signal] public delegate void HalfNoteEventHandler();
+    [Signal] public delegate void QuarterNoteEventHandler();
+    [Signal] public delegate void EighthNoteEventHandler();
+    [Signal] public delegate void SixteenthNoteEventHandler();
 
     //Private variables
 
@@ -65,6 +69,7 @@ public partial class Conductor : Node
         noteIntervals.Add(new NoteInterval(NoteType.Half,beatLength));
         noteIntervals.Add(new NoteInterval(NoteType.Quarter,beatLength));
         noteIntervals.Add(new NoteInterval(NoteType.Eighth,beatLength));
+        noteIntervals.Add(new NoteInterval(NoteType.Sixteenth,beatLength));
     }
 
 
@@ -85,17 +90,20 @@ public override void _Process(double delta)
                     {
                         case NoteType.Whole:
 
-                            EmitSignal(SignalName.WholeBeat);
+                            EmitSignal(SignalName.WholeNote);
                             break;
                         case NoteType.Half:
-                            EmitSignal(SignalName.HalfBeat);
+                            EmitSignal(SignalName.HalfNote);
                             break;
                         case NoteType.Quarter:
                             GD.Print("currentBeat, nextbeat" + " " + playbackPosition.ToString("0.000") + " " + noteInterval.nextBeatTime.ToString("0.000") + " " + noteInterval.beatLength.ToString("0.000"));
-                            EmitSignal(SignalName.QuarterBeat);
+                            EmitSignal(SignalName.QuarterNote);
                             break;
                         case NoteType.Eighth:
-                            EmitSignal(SignalName.EighthBeat);
+                            EmitSignal(SignalName.EighthNote);
+                            break;
+                        case NoteType.Sixteenth:
+                            EmitSignal(SignalName.SixteenthNote);
                             break;
                     }
 

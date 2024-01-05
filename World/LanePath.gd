@@ -13,8 +13,8 @@ var index = 0
 func _ready():
 	beatLength = conductor.CalculateBeatLength()
 	travelSpeed = 1 / beatLength
-	self.conductor.connect("QuarterBeat", tweenOnBeat)
-	self.conductor.connect("QuarterBeat", spawnObstacle)
+	self.conductor.connect("QuarterNote", tweenOnBeat)
+	self.conductor.connect("QuarterNote", spawnObstacle)
 	for child in get_children():
 		path_follow_3d = child
 	
