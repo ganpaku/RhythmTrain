@@ -56,12 +56,6 @@ bpm = 90.0
 stream = ExtResource("3_yk8xu")
 autoplay = true
 
-[node name="ColorRect" type="ColorRect" parent="Conductor"]
-offset_left = 63.0
-offset_top = 66.0
-offset_right = 103.0
-offset_bottom = 106.0
-
 [node name="Player" parent="." instance=ExtResource("1_7legx")]
 
 [node name="LaneMarkers" type="Node3D" parent="."]

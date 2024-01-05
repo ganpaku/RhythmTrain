@@ -19,21 +19,21 @@ using Godot;
             switch(noteType)
             {
                 case NoteType.Whole:
-                    beatLength = beatLengthInSeconds;
+                    beatLength = beatLengthInSeconds*4.0;
                     break;
                 case NoteType.Half:
-                    beatLength = beatLengthInSeconds/2.0;
+                    beatLength = beatLengthInSeconds*2.0;
                     break;
                 case NoteType.Quarter:
-                    beatLength = beatLengthInSeconds/4.0;
+                    beatLength = beatLengthInSeconds;
                     break;
                 case NoteType.Eighth:
-                    beatLength = beatLengthInSeconds/8.0;
+                    beatLength = beatLengthInSeconds/2.0;
                     break;
                 default:
                     beatLength = 8.0;
                     break;
-                
+
             }
         }
   }
@@ -42,7 +42,7 @@ public partial class Conductor : Node
     //Public variables
     [Export]
     private int InputLagInMilliseconds = 100;
-
+    [Export] private double bpm = 120.0;
     //Beat Signals
     [Signal] public delegate void WholeBeatEventHandler();
     [Signal] public delegate void HalfBeatEventHandler();
@@ -50,7 +50,7 @@ public partial class Conductor : Node
     [Signal] public delegate void EighthBeatEventHandler();
 
     //Private variables
-    [Export] private double bpm = 120.0;
+
 
     private AudioStreamPlayer audioStreamPlayer = null;
      private double previousPlaybackPosition = 0.0;
@@ -67,15 +67,14 @@ public partial class Conductor : Node
         noteIntervals.Add(new NoteInterval(NoteType.Eighth,beatLength));
     }
 
-    private double CalculateBeatLength()
-    {
-        return  60.0 / bpm;
-    }
 
-   
+
 
 public override void _Process(double delta)
 {
+    // Test Area start
+
+    // Test Area end
     playbackPosition = audioStreamPlayer.GetPlaybackPosition() + AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency();
     if (audioStreamPlayer.Playing)
         {
@@ -85,25 +84,114 @@ public override void _Process(double delta)
                     switch(noteInterval.noteType)
                     {
                         case NoteType.Whole:
-                            GD.Print("currentBeat, nextbeat" + " " + playbackPosition.ToString("0.000") + " " + noteInterval.nextBeatTime.ToString("0.000") + " " + noteInterval.beatLength.ToString("0.000"));
+
                             EmitSignal(SignalName.WholeBeat);
                             break;
                         case NoteType.Half:
                             EmitSignal(SignalName.HalfBeat);
                             break;
                         case NoteType.Quarter:
+                            GD.Print("currentBeat, nextbeat" + " " + playbackPosition.ToString("0.000") + " " + noteInterval.nextBeatTime.ToString("0.000") + " " + noteInterval.beatLength.ToString("0.000"));
                             EmitSignal(SignalName.QuarterBeat);
                             break;
                         case NoteType.Eighth:
                             EmitSignal(SignalName.EighthBeat);
                             break;
                     }
-                    
+
                 }
             }
             previousPlaybackPosition = playbackPosition;
         }
-       
+}
+
+#region public methods
+
+/// <summary>
+/// For quarter notes only. Calculates distance to the next beat with the current playback position
+/// </summary>
+/// <returns>a double between 0.0 and 1.0 representing the distance to the next beat. min Value when no beat is found</returns>
+public double GetBeatProgressQuarter()
+{
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    return GetBeatProgress(noteInterval);
+}
+/// <summary>
+/// For eighth notes only. Calculates distance to the next beat with the current playback position
+/// </summary>
+/// <returns>a double between 0.0 and 1.0 representing the distance to the next beat. min Value when no beat is found</returns>
+public double GetBeatProgressEighth()
+{
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    return GetBeatProgress(noteInterval);
+}
+/// <summary>
+/// For half notes only. Calculates distance to the next beat with the current playback position
+/// </summary>
+/// <returns>a double between 0.0 and 1.0 representing the distance to the next beat. min Value when no beat is found</returns>
+public double GetBeatProgressHalf()
+{
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    return GetBeatProgress(noteInterval);
+}
+
+/// <summary>
+/// For whole notes only. Calculates distance to the next beat with the current playback position
+/// </summary>
+/// <returns>a double between 0.0 and 1.0 representing the distance to the next beat. min Value when no beat is found</returns>
+public double GetBeatProgressWhole()
+{
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    return GetBeatProgress(noteInterval);
+}
+
+/// <summary>
+/// Returns the current timing accuracy, based on the current playback position
+/// </summary>
+/// <returns></returns>
+public TimingAccuracy IsInBeat()
+{
+    var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
+    double timeUntilNextBeat = noteInterval.nextBeatTime - playbackPosition;
+    double timeSinceLastBeat = audioStreamPlayer.GetPlaybackPosition() - (noteInterval.nextBeatTime - noteInterval.beatLength);
+    //adjust for input lag
+    timeUntilNextBeat -= InputLagInMilliseconds / 1000.0;
+    timeSinceLastBeat -= InputLagInMilliseconds / 1000.0;
+    var adjustedHitTime = playbackPosition - InputLagInMilliseconds / 1000.0;
+    GD.Print("adjustedHitTime = "+ adjustedHitTime.ToString("0.000") + " " + "nextBeatTime = " + noteInterval.nextBeatTime.ToString("0.000") + " " + "timeUntilNextBeat = " + timeUntilNextBeat.ToString("0.000") + " " + "timeSinceLastBeat = " + timeSinceLastBeat.ToString("0.000") );
+
+    if (Math.Abs(timeUntilNextBeat) < 0.015 || Math.Abs(timeSinceLastBeat) < 0.015) // Perfect timing
+    {
+        GD.Print("Perfect!");
+        return TimingAccuracy.Perfect;
+    }
+    else if (Math.Abs(timeUntilNextBeat) < 0.04 || Math.Abs(timeSinceLastBeat) < 0.04) // OK timing
+    {
+        GD.Print("OK!");
+        return TimingAccuracy.OK;
+    }
+    else // Missed timing
+    {
+        GD.Print("Miss!");
+        return TimingAccuracy.Miss;
+    }
+}
+
+#endregion
+
+#region private methods
+
+
+private double GetBeatProgress(NoteInterval noteInterval)
+{
+    var progress = double.MinValue;
+    if (noteInterval != null)
+    {
+
+        progress = (noteInterval.nextBeatTime - playbackPosition) / noteInterval.beatLength;
+    }
+    GD.Print("beat progress = " + progress.ToString("0.000"));
+    return progress;
 }
 
     private bool CheckForBeat(NoteInterval noteInterval)
@@ -120,40 +208,31 @@ public override void _Process(double delta)
             return true;
 
         }
-        else if (playbackPosition < noteInterval.beatLength && noteInterval.nextBeatTime == 8.0 &&noteInterval.lastBeatPlayed != noteInterval.nextBeatTime)
+        if (
+            playbackPosition < noteInterval.beatLength
+            && Math.Abs(noteInterval.nextBeatTime - LastBeatTime(noteInterval)) < 0.01
+            && Math.Abs(noteInterval.lastBeatPlayed - noteInterval.nextBeatTime) > 0.01)
         {
             noteInterval.nextBeatTime = noteInterval.beatLength;
-            EmitSignal("WholeBeatEventHandler");
             return true;
         }
         return false;
     }
+    //Utils
 
-    public TimingAccuracy IsInBeat()
+    private double LastBeatTime(NoteInterval noteInterval)
     {
-        var noteInterval = noteIntervals.Find(interval => interval.noteType== NoteType.Quarter);
-        double timeUntilNextBeat = noteInterval.nextBeatTime - playbackPosition;
-        double timeSinceLastBeat = audioStreamPlayer.GetPlaybackPosition() - (noteInterval.nextBeatTime - noteInterval.beatLength);
-        //adjust for input lag
-        timeUntilNextBeat -= InputLagInMilliseconds / 1000.0;
-        timeSinceLastBeat -= InputLagInMilliseconds / 1000.0;
-        var adjustedHitTime = playbackPosition - InputLagInMilliseconds / 1000.0;
-        GD.Print("adjustedHitTime = "+ adjustedHitTime.ToString("0.000") + " " + "nextBeatTime = " + noteInterval.nextBeatTime.ToString("0.000") + " " + "timeUntilNextBeat = " + timeUntilNextBeat.ToString("0.000") + " " + "timeSinceLastBeat = " + timeSinceLastBeat.ToString("0.000") );
-
-        if (Math.Abs(timeUntilNextBeat) < 0.015 || Math.Abs(timeSinceLastBeat) < 0.015) // Perfect timing 
-        {
-            GD.Print("Perfect!");
-            return TimingAccuracy.Perfect;
-        }
-        else if (Math.Abs(timeUntilNextBeat) < 0.04 || Math.Abs(timeSinceLastBeat) < 0.04) // OK timing 
-        {
-            GD.Print("OK!");
-            return TimingAccuracy.OK;
-        }
-        else // Missed timing
-        {
-            GD.Print("Miss!");
-            return TimingAccuracy.Miss;
-        }
+        var audioStreamLength = audioStreamPlayer.Stream.GetLength();
+        //examples: if beat length is 0.5 last beat is 8.0 for a 8.25 second audio stream
+        //if beat length is 0.25 last beat is 8.25 for a 8.25 second audio stream
+        //calculate the last beat time for the current note type
+        return  audioStreamLength - (audioStreamLength % noteInterval.beatLength);
     }
+
+    private double CalculateBeatLength()
+    {
+        return  60.0 / bpm;
+    }
+
+    #endregion
 }

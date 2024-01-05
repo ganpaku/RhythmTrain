@@ -26,7 +26,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_up"):
-		var _inBeat = conductor.IsInBeat()
+		var beatProgress = conductor.GetBeatProgressQuarter()
 	if Input.is_action_just_pressed("ui_right"):
 		if currentLane >= lanes.size() -1:
 			return
