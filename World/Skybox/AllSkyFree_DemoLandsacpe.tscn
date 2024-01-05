@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource path="res://AllSkyFree_Skyboxes/AllSky_DemoEnvironment.obj" type="ArrayMesh" id=1]
+[ext_resource type="ArrayMesh" uid="uid://c1heigj86ya5j" path="res://World/Skybox/AllSky_DemoEnvironment.obj" id="1"]
 
 
 [sub_resource type="VisualShaderNodeColorConstant" id=1]

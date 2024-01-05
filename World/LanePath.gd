@@ -14,21 +14,21 @@ var beat_marker = preload("res://BeatMarker/BeatMarkerFollow.tscn")
 var index = 0
 
 func _ready():
-	
+
 	beatLength = conductor.CalculateBeatLength()
 	travelSpeed = 1 / beatLength
-	self.conductor.connect("QuarterBeat", tweenOnBeat)
-	self.conductor.connect("EighthBeat", spawnObstacle)
+	self.conductor.connect("QuarterNote", tweenOnBeat)
+	self.conductor.connect("EighthNote", spawnObstacle)
 	#for child in get_children():
 		#path_follow_array.push_back(child)
 		#print(path_follow_array)
-	
+
 	#print(column_data_array)
 func _process(delta):
 	pass
-	
+
 	#path_follow_array.progress_ratio -= (travelSpeed / 4) * delta
-	
+
 #get called with "QuarterBeat" signal from Conductor
 func spawnObstacle():
 	if index >= laneList.size():
@@ -59,4 +59,3 @@ func tweenOnBeat():
 		if is_instance_valid(path):
 			var tween = create_tween()
 			tween.tween_property(path, "progress_ratio", path.progress_ratio - 0.125, beatLength)
-

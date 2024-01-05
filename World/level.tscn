@@ -175,8 +175,8 @@ transform = Transform3D(2, 2.22045e-16, 2.84217e-14, 0, 1, -1.19209e-07, 2.84217
 transform = Transform3D(-1.07017e-07, 0, -2.44826, 0, 2.44826, 0, 2.44826, 0, -1.07017e-07, 221, -1.27968, 0)
 script = ExtResource("11_niujg")
 
-[connection signal="QuarterBeat" from="Conductor" to="Player" method="_on_conductor_quarter_beat"]
-[connection signal="WholeBeat" from="Conductor" to="Player" method="_on_conductor_whole_beat"]
+[connection signal="QuarterNote" from="Conductor" to="Player" method="_on_conductor_quarter_note"]
+[connection signal="WholeNote" from="Conductor" to="Player" method="_on_conductor_whole_note"]
 
 [editable path="LaneScrollerPath/PathLaneChunk1/Track/Lane_Track"]
 [editable path="LaneScrollerPath/PathLaneChunk2/Track/Lane_Track"]

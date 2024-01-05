@@ -22,7 +22,7 @@ func _ready():
 	lanes = lane_markers.get_children()
 	print(lanes)
 	currentLane = 1
-	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_up"):
@@ -48,7 +48,7 @@ func move_player(index):
 	tween.tween_property(self, "global_position", lanes[index].global_position, 0.15)
 	await tween.finished
 	isHopping = false
-	
+
 func beatAnimTween():
 	var tween = create_tween()
 	tween.tween_property(model_transform, "scale", Vector3(1.3,1.3,1.3), 0.05).set_ease(Tween.EASE_IN_OUT)
@@ -70,7 +70,20 @@ func _on_hurtbox_area_entered(area):
 		if health <= 0:
 			emit_signal("noHealth")
 
-func _on_conductor_whole_beat():
-	pass # Replace with function body.
 
 
+
+
+func _on_conductor_quarter_note():
+	#beat_anim.play("EveryBeatSquash")
+	# small scale up anim
+	if(conductor.GetBeatProgressWhole() >0.95):
+		return
+	var tween = create_tween()
+	tween.tween_property(model_transform, "scale", Vector3(1.05,1.05,1.05), 0.05).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(model_transform, "scale", Vector3(1.0,1.0,1.0), 0.05).set_ease(Tween.EASE_OUT)
+
+
+func _on_conductor_whole_note():
+	beatAnimTween()
+	ring_particles.emitting = true
