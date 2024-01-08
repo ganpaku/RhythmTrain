@@ -9,4 +9,4 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	for child in lanes:
-		child.progress_ratio -= .5 * delta
+		child.progress_ratio -= 0.125 * delta

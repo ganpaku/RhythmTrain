@@ -12,4 +12,5 @@ func _process(delta):
 
 
 func _on_area_3d_area_entered(area):
-	queue_free()
+	if area.is_in_group("DeleteArea"):
+		queue_free()
