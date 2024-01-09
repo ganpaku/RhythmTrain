@@ -45,6 +45,7 @@ func spawnObstacle():
 	elif laneList[index].contains("m"):
 		var marker_instance = beat_marker.instantiate()
 		add_child(marker_instance)
+		#print("SPAWN", Time.get_ticks_msec())
 		(marker_instance as PathFollow3D).progress_ratio = 1.0 + (0.0622/8)
 		path_follow_array.push_back(marker_instance)
 		var tween = create_tween()
@@ -58,6 +59,8 @@ func tweenOnBeat():
 	for path in path_follow_array:
 		if is_instance_valid(path):
 			var tween = create_tween()
+			var beatProgress = conductor.GetBeatProgressQuarter()
+			print(beatProgress)
 			# tweens the progress_ratio of the path_follow by the beat length. 
 			# 1/8 meaning the object on the path will travel an eigth of the path every beat
 			# so the object will reach the player in 8 beats. 

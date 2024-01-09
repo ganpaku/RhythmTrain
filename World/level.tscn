@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bwbn2iui54g0y" path="res://Player/player.tscn" id="1_7legx"]
 [ext_resource type="Script" path="res://World/Conductor.cs" id="1_an4j4"]
 [ext_resource type="Script" path="res://World/LanePath.gd" id="2_ql2os"]
-[ext_resource type="AudioStream" uid="uid://chqcoq3lgyrni" path="res://Audio/Music/Carpenter Brut - Roller Mobster cut.wav" id="3_lc7u0"]
+[ext_resource type="AudioStream" uid="uid://cglted1r885g1" path="res://Audio/Music/RhythmTrain 1min test_90bpm.mp3" id="3_kl4pl"]
 [ext_resource type="Texture2D" uid="uid://ctfsydqn46hrn" path="res://icon.svg" id="7_0qp3b"]
 [ext_resource type="Script" path="res://World/LaneScrollerPath.gd" id="8_7uxji"]
 [ext_resource type="PackedScene" uid="uid://copjc7deimdty" path="res://World/Lanes/Lane_Track.blend" id="8_mdg4s"]
@@ -51,10 +51,10 @@ shadow_enabled = true
 [node name="Conductor" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_an4j4")
-bpm = 65.5
+bpm = 90.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Conductor"]
-stream = ExtResource("3_lc7u0")
+stream = ExtResource("3_kl4pl")
 volume_db = -8.492
 autoplay = true
 

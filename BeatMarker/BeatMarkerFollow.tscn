@@ -17,11 +17,11 @@ tilt_enabled = false
 script = ExtResource("1_1cb6v")
 
 [node name="BeatMarker_default" parent="." instance=ExtResource("1_0chwd")]
-transform = Transform3D(1.57999, 1.41279e-07, 1.50048e-07, -4.6881e-08, 1.36656, -0.79304, -2.00689e-07, 0.79304, 1.36656, 1.0927e-08, -0.328208, -0.0560366)
+transform = Transform3D(1.57999, 1.41279e-07, 1.50048e-07, -4.6881e-08, 1.36656, -0.79304, -2.00689e-07, 0.79304, 1.36656, 1.19273e-08, -0.328208, -0.0331521)
 
 [node name="MarkerHitArea" type="Area3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 6.79439e-09, -8.60052e-09, -8.18461e-09, 0.984807, -0.173648, 7.2901e-09, 0.173648, 0.984808, 2.35758e-09, -0.401788, 0.090891)
+transform = Transform3D(0.999999, 6.79439e-09, -8.60052e-09, -8.18461e-09, 0.984808, -0.173648, 7.2901e-09, 0.173648, 0.984808, 3.35788e-09, -0.401788, 0.113776)
 collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MarkerHitArea"]
@@ -29,7 +29,7 @@ transform = Transform3D(1, 1.07647e-12, 0, 0, 1, 1.9735e-15, 0, -2.57976e-07, 1,
 shape = SubResource("BoxShape3D_pv5qf")
 
 [node name="DeleteArea" type="Area3D" parent="."]
-transform = Transform3D(1.57999, 1.41279e-07, 1.50048e-07, -4.6881e-08, 1.36656, -0.79304, -2.0069e-07, 0.79304, 1.36656, -6.38822e-09, -0.361002, -0.146149)
+transform = Transform3D(1.57999, 1.41279e-07, 1.50048e-07, -4.6881e-08, 1.36656, -0.79304, -2.0069e-07, 0.79304, 1.36656, -5.38792e-09, -0.361002, -0.123264)
 collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DeleteArea"]
