@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bvahvjiktwoxq"]
+[gd_scene load_steps=15 format=3 uid="uid://bvahvjiktwoxq"]
 
 [ext_resource type="PackedScene" uid="uid://7v2wra8bi5kw" path="res://World/Skybox/AllSkyFree_Sky_AnotherPlanet.tscn" id="1_5vhro"]
 [ext_resource type="PackedScene" uid="uid://bwbn2iui54g0y" path="res://Player/player.tscn" id="1_7legx"]
@@ -29,9 +29,6 @@ roughness = 0.14
 emission = Color(0.313726, 0.643137, 1, 1)
 emission_energy_multiplier = 1.62
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2go68"]
-size = Vector3(1.30115, 2.48352, 10.6284)
-
 [sub_resource type="Curve3D" id="Curve3D_8pker"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, -84, 0, 0, -28, 0, 0, 28, 0, 0, 81, 0, 0, -13, 5, 0, 13, -5, 0, 150, -6, 0),
@@ -55,7 +52,7 @@ bpm = 90.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Conductor"]
 stream = ExtResource("3_kl4pl")
-volume_db = -25.0
+volume_db = -14.053
 autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("1_7legx")]
@@ -81,7 +78,6 @@ laneList = Array[String](["m", "", "m", "o", "m", "m", "o", "m", "o", "m", "o", 
 unique_name_in_owner = true
 curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
-laneType = 1
 laneList = Array[String](["m", "o", "m", "", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", ""])
 
 [node name="LaneRight" type="Path3D" parent="."]
@@ -89,7 +85,6 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
-laneType = 2
 laneList = Array[String](["o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "", "m", "", "m", "", "m", "m", "m", "m", "m", "m", "m", "m", "o", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""])
 
 [node name="planes_zz" type="Node3D" parent="."]
@@ -118,10 +113,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
 [node name="ObjectDeleteArea" type="Area3D" parent="." groups=["DeleteArea"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, 0)
 collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ObjectDeleteArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0776443, 0.74176, -0.217255)
-shape = SubResource("BoxShape3D_2go68")
 
 [node name="LaneScrollerPath" type="Path3D" parent="."]
 curve = SubResource("Curve3D_8pker")
@@ -166,7 +157,7 @@ transform = Transform3D(-2.09815e-07, 0, -1, 0, 3, 0, 4.8, 0, -4.37114e-08, 0, 0
 transform = Transform3D(2, 2.22045e-16, 2.84217e-14, 0, 1, -1.19209e-07, 2.84217e-14, -5.28769e-16, -36.474, 0, -4.76837e-07, -32.8739)
 
 [node name="PathLaneChunk4" type="PathFollow3D" parent="LaneScrollerPath"]
-transform = Transform3D(-1.62681e-07, 0.0642451, -0.997894, 3.72529e-09, 0.997894, 0.0642451, 1, 6.73399e-09, -1.62578e-07, 118.749, -0.962963, 0)
+transform = Transform3D(-1.62681e-07, 0.064245, -0.997893, 3.72529e-09, 0.997893, 0.064245, 1, 6.73399e-09, -1.62577e-07, 118.749, -0.962963, 0)
 progress = 202.768
 tilt_enabled = false
 
