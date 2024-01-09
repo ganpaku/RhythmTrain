@@ -4,22 +4,19 @@
 [ext_resource type="PackedScene" uid="uid://bwbn2iui54g0y" path="res://Player/player.tscn" id="1_7legx"]
 [ext_resource type="Script" path="res://World/Conductor.cs" id="1_an4j4"]
 [ext_resource type="Script" path="res://World/LanePath.gd" id="2_ql2os"]
-[ext_resource type="AudioStream" uid="uid://cglted1r885g1" path="res://Audio/Music/RhythmTrain 1min test_90bpm.mp3" id="3_yk8xu"]
+[ext_resource type="AudioStream" uid="uid://chqcoq3lgyrni" path="res://Audio/Music/Carpenter Brut - Roller Mobster cut.wav" id="3_lc7u0"]
 [ext_resource type="Texture2D" uid="uid://ctfsydqn46hrn" path="res://icon.svg" id="7_0qp3b"]
 [ext_resource type="Script" path="res://World/LaneScrollerPath.gd" id="8_7uxji"]
 [ext_resource type="PackedScene" uid="uid://copjc7deimdty" path="res://World/Lanes/Lane_Track.blend" id="8_mdg4s"]
 [ext_resource type="PackedScene" uid="uid://binprulqbg75p" path="res://World/Terrain/Retrowave_Terrain.blend" id="10_c8akx"]
 [ext_resource type="Script" path="res://World/Terrain/Retrowave_Terrain.gd" id="11_niujg"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2go68"]
-size = Vector3(1.30115, 2.48352, 10.6284)
-
 [sub_resource type="Curve3D" id="Curve3D_bmpdo"]
 _data = {
-"points": PackedVector3Array(-10.3544, -0.544965, 0, 0, 0, 0, -5, 0, 0, -10.3544, -0.544965, 0, 10.3544, 0.544965, 0, 71.8124, 2.25159, 0, -8.81342, 11.4607, -1.90735e-05, 8.81342, -11.4607, 1.90735e-05, 133.949, -4.46617, -7.62939e-06),
-"tilts": PackedFloat32Array(0, 1.5708, 0)
+"points": PackedVector3Array(-10.3544, -0.544965, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0, 0, 0, 2.249, 0, 0, -10.3544, -0.544965, 0, 10.3544, 0.544965, 0, 71.8124, 2.25159, 0, -8.81342, 11.4607, -1.90735e-05, 8.81342, -11.4607, 1.90735e-05, 133.949, -4.46617, -7.62939e-06),
+"tilts": PackedFloat32Array(0, 0, 1.5708, 0)
 }
-point_count = 3
+point_count = 4
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_onfxe"]
 size = Vector2(200, 200)
@@ -31,6 +28,9 @@ metallic = 0.42
 roughness = 0.14
 emission = Color(0.313726, 0.643137, 1, 1)
 emission_energy_multiplier = 1.62
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2go68"]
+size = Vector3(1.30115, 2.48352, 10.6284)
 
 [sub_resource type="Curve3D" id="Curve3D_8pker"]
 _data = {
@@ -51,21 +51,14 @@ shadow_enabled = true
 [node name="Conductor" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_an4j4")
-bpm = 90.0
+bpm = 65.5
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Conductor"]
-stream = ExtResource("3_yk8xu")
+stream = ExtResource("3_lc7u0")
+volume_db = -8.492
 autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("1_7legx")]
-
-[node name="ObjectDeleteArea" type="Area3D" parent="." groups=["DeleteArea"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, 0)
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ObjectDeleteArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.577644, 0.74176, -0.217255)
-shape = SubResource("BoxShape3D_2go68")
 
 [node name="LaneMarkers" type="Node3D" parent="."]
 
@@ -82,7 +75,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
-laneList = Array[String](["m", "", "m", "o", "m", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", ""])
+laneList = Array[String](["m", "", "m", "o", "m", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "m", "o", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "m", "", "m", "m", "m", "m", "m", "m", "m", "m", "m", ""])
 
 [node name="LaneMiddle" type="Path3D" parent="."]
 unique_name_in_owner = true
@@ -97,24 +90,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 curve = SubResource("Curve3D_bmpdo")
 script = ExtResource("2_ql2os")
 laneType = 2
-laneList = Array[String](["o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "", "m", "", "m", "", "m", "m", "m", "m", "m", "m", "m", "m", "o", "m"])
+laneList = Array[String](["o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "o", "", "m", "", "m", "", "m", "m", "m", "m", "m", "m", "m", "m", "o", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "m", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""])
 
-[node name="W_Plane1" type="MeshInstance3D" parent="."]
+[node name="planes_zz" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.0880751, 0, -2.1, 0)
-mesh = SubResource("PlaneMesh_onfxe")
-surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 6.70552e-08, -1, 0, 1, 6.70552e-08, 0, -2.1, -25)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="planes_zz"]
+transform = Transform3D(1, 0, 0, 0, 6.70552e-08, -1, 0, 11.3539, 7.61341e-07, 0, 0, -283.849)
 visible = false
 mesh = SubResource("PlaneMesh_onfxe")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 8.74228e-08, 5.86215e-15, 0, 6.70552e-08, -1, -8.74228e-08, -1, -6.70552e-08, 0, -2.1, 24)
+[node name="W_Plane1" type="MeshInstance3D" parent="planes_zz"]
 visible = false
 mesh = SubResource("PlaneMesh_onfxe")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="planes_zz"]
+transform = Transform3D(-1, 8.74228e-08, 5.86215e-15, 0, 6.70552e-08, -1, -9.92594e-07, -11.3539, -7.61341e-07, 0, 0, 272.495)
+visible = false
+mesh = SubResource("PlaneMesh_onfxe")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnx1i")
+
+[node name="ObjectDeleteArea" type="Area3D" parent="." groups=["DeleteArea"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 0, 0)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ObjectDeleteArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0776443, 0.74176, -0.217255)
+shape = SubResource("BoxShape3D_2go68")
 
 [node name="LaneScrollerPath" type="Path3D" parent="."]
 curve = SubResource("Curve3D_8pker")
@@ -159,7 +166,7 @@ transform = Transform3D(-2.09815e-07, 0, -1, 0, 3, 0, 4.8, 0, -4.37114e-08, 0, 0
 transform = Transform3D(2, 2.22045e-16, 2.84217e-14, 0, 1, -1.19209e-07, 2.84217e-14, -5.28769e-16, -36.474, 0, -4.76837e-07, -32.8739)
 
 [node name="PathLaneChunk4" type="PathFollow3D" parent="LaneScrollerPath"]
-transform = Transform3D(-1.62681e-07, 0.0642452, -0.997896, 3.72529e-09, 0.997896, 0.0642452, 1, 6.734e-09, -1.62578e-07, 118.749, -0.962963, 0)
+transform = Transform3D(-1.62681e-07, 0.0642451, -0.997895, 3.72529e-09, 0.997895, 0.0642451, 1, 6.734e-09, -1.62578e-07, 118.749, -0.962963, 0)
 progress = 202.768
 tilt_enabled = false
 

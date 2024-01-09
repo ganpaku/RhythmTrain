@@ -37,7 +37,7 @@ func spawnObstacle():
 	if laneList[index].contains("o"):
 		var obst_instance = obstacle.instantiate()
 		add_child(obst_instance)
-		(obst_instance as PathFollow3D).progress_ratio = 1
+		(obst_instance as PathFollow3D).progress_ratio = 1.0 + (0.0622/8)
 		path_follow_array.push_back(obst_instance)
 		var tween = create_tween()
 		tween.tween_property(obst_instance, "progress_ratio", obst_instance.progress_ratio - 0.125, beatLength)
@@ -45,7 +45,7 @@ func spawnObstacle():
 	elif laneList[index].contains("m"):
 		var marker_instance = beat_marker.instantiate()
 		add_child(marker_instance)
-		(marker_instance as PathFollow3D).progress_ratio = 1
+		(marker_instance as PathFollow3D).progress_ratio = 1.0 + (0.0622/8)
 		path_follow_array.push_back(marker_instance)
 		var tween = create_tween()
 		tween.tween_property(marker_instance, "progress_ratio", marker_instance.progress_ratio - 0.125, beatLength)
@@ -59,8 +59,8 @@ func tweenOnBeat():
 		if is_instance_valid(path):
 			var tween = create_tween()
 			# tweens the progress_ratio of the path_follow by the beat length. 
-			# 0.125 is 1/8 meaning the object on the path will travel an eigth of the path every beat
+			# 1/8 meaning the object on the path will travel an eigth of the path every beat
 			# so the object will reach the player in 8 beats. 
 			# 0.0355 is the point on the path where the players transform is. 
 			# an eigth of this will be substracted on every tween to compensate for the "leftover" path behind the player
-			tween.tween_property(path, "progress_ratio", (path.progress_ratio + (0.0355/8)) - 0.125, beatLength)
+			tween.tween_property(path, "progress_ratio", (path.progress_ratio + (0.0622/8)) - 0.125, beatLength)

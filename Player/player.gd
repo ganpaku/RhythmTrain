@@ -87,10 +87,11 @@ func _on_conductor_whole_note():
 
 
 
-#func _on_button_pressed():
-	#pass
-	#if note_hitbox.overlaps_area(MarkerHitArea):
-		#print("HIT++++++++")
+func _on_button_pressed():
+	pass
+	var tween = create_tween()
+	tween.tween_property(%PlayerCamera,"fov", 95, 0.1)
+	tween.tween_property(%PlayerCamera,"fov", 100, 0.1)
 
 func checkBeatHit():
 	pass

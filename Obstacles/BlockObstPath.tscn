@@ -4,12 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://cfexyanvijbm1" path="res://Obstacles/BlockObst.tscn" id="1_bneng"]
 
 [node name="BlockObstPath" type="PathFollow3D" groups=["Object"]]
-transform = Transform3D(-1.22071e-06, 0.79267, -0.609629, 7.45052e-07, 0.609631, 0.792668, 0.999992, 5.13418e-07, -1.33477e-06, 133.949, -4.46601, -7.62965e-06)
+transform = Transform3D(-4.3711e-08, 0, -0.999985, 0, 0.999988, 0, 0.999992, 0, -4.37107e-08, 0, 0, 0)
 loop = false
 tilt_enabled = false
 script = ExtResource("1_8xbdd")
 
 [node name="BlockObst" parent="." instance=ExtResource("1_bneng")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1861e-08, 0, 0.957675)
 collision_mask = 3
 script = null
 
