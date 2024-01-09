@@ -10,29 +10,29 @@ size = Vector3(1, 0.499023, 0.524902)
 size = Vector3(1, 0.225555, 0.315369)
 
 [node name="BeatMarkerFollow" type="PathFollow3D" groups=["Object"]]
-transform = Transform3D(-3.51255e-08, 0.16243, -0.986694, 5.21536e-08, 0.986696, 0.162429, 0.999992, -4.57547e-08, -4.31298e-08, 118.688, 2.1272, -1.44e-05)
+transform = Transform3D(-4.3711e-08, 0, -0.999974, 0, 0.999976, 0, 0.999992, 0, -4.37103e-08, 0, 2.127, 0)
 loop = false
 tilt_enabled = false
 script = ExtResource("1_1cb6v")
 
 [node name="BeatMarker_default" parent="." instance=ExtResource("1_0chwd")]
-transform = Transform3D(1.57999, 1.41279e-07, 1.50048e-07, -4.6881e-08, 1.36656, -0.79304, -2.00689e-07, 0.79304, 1.36656, -3.52557e-08, -0.389912, -0.990677)
+transform = Transform3D(1.57999, 1.41279e-07, 1.50048e-07, -4.6881e-08, 1.36656, -0.79304, -2.00689e-07, 0.79304, 1.36656, -5.65654e-08, -0.328207, -1.60011)
 
 [node name="MarkerHitArea" type="Area3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(0.999999, 6.79437e-09, -8.60052e-09, -8.1846e-09, 0.984807, -0.173648, 7.29006e-09, 0.173648, 0.984808, -3.62816e-08, -0.464478, -0.348404)
+transform = Transform3D(0.999999, 6.79439e-09, -8.60052e-09, -8.1846e-09, 0.984807, -0.173648, 7.29007e-09, 0.173648, 0.984808, -6.09687e-08, -0.401787, -1.35787)
 collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MarkerHitArea"]
 transform = Transform3D(1, 1.07647e-12, 0, 0, 1, 1.9735e-15, 0, -2.57976e-07, 1, 1.81899e-12, 0, -0.218018)
 shape = SubResource("BoxShape3D_pv5qf")
 
-[node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1.57999, 1.41279e-07, 1.50048e-07, -4.6881e-08, 1.36656, -0.793041, -2.0069e-07, 0.79304, 1.36656, -2.08893e-08, -0.456348, -0.58709)
+[node name="DeleteArea" type="Area3D" parent="."]
+transform = Transform3D(1.57999, 1.41279e-07, 1.50048e-07, -4.6881e-08, 1.36656, -0.79304, -2.0069e-07, 0.79304, 1.36656, -6.97145e-08, -0.361002, -1.59491)
 collision_layer = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeleteArea"]
 transform = Transform3D(1, -5.32907e-15, -1.42109e-14, -6.43041e-13, 1, 5.96046e-08, 2.62901e-13, 2.27332e-15, 1, 2.27374e-12, -0.00646591, 0.00257111)
 shape = SubResource("BoxShape3D_54ikv")
 
-[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_entered" from="DeleteArea" to="." method="_on_area_3d_area_entered"]

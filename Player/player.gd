@@ -24,7 +24,6 @@ func _ready():
 	lanes = lane_markers.get_children()
 	print(lanes)
 	currentLane = 1
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_up"):
