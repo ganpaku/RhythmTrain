@@ -58,7 +58,7 @@ func tweenOnBeat():
 	pass # Replace with function body.
 	for path in path_follow_array:
 		if is_instance_valid(path):
-			var tween = create_tween()
+			#var tween = create_tween()
 			# tweens the progress_ratio of the path_follow by the beat length. 
 			# 1/8 meaning the object on the path will travel an eigth of the path every beat
 			# so the object will reach the player in 8 beats. 
