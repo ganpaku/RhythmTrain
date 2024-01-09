@@ -50,7 +50,7 @@ func spawnObstacle():
 		path_follow_array.push_back(marker_instance)
 		var tween = create_tween()
 		tween.tween_property(marker_instance, "progress_ratio", marker_instance.progress_ratio - 0.125, beatLength)
-
+		
 	index+=1
 
 #gets called with "QuarterBeat" from Conductor
@@ -59,11 +59,15 @@ func tweenOnBeat():
 	for path in path_follow_array:
 		if is_instance_valid(path):
 			var tween = create_tween()
-			var beatProgress = conductor.GetBeatProgressQuarter()
-			print(beatProgress)
 			# tweens the progress_ratio of the path_follow by the beat length. 
 			# 1/8 meaning the object on the path will travel an eigth of the path every beat
 			# so the object will reach the player in 8 beats. 
 			# 0.0355 is the point on the path where the players transform is. 
 			# an eigth of this will be substracted on every tween to compensate for the "leftover" path behind the player
-			tween.tween_property(path, "progress_ratio", (path.progress_ratio + (0.0622/8)) - 0.125, beatLength)
+			#var playerProgressPosition = 0.0355
+			var beatMarker = (path as BeatMarkerFollow)
+			if(beatMarker):
+				beatMarker.advanceBeat(beatLength)
+			#tween.tween_property(path, "progress_ratio", 1-playerProgressPosition, beatLength)
+			#tween.tween_property(path, "progress_ratio", (path.progress_ratio + (0.0622/8)) - 0.125, beatLength)
+			#tween.tween_property(path, "progress_ratio", (path.progress_ratio + (0.0622/8)) - 0.125, beatLength)
